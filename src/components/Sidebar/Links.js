@@ -18,7 +18,7 @@ export const links = [
       {
         name: "rules",
         to: "rules",
-        icon: <ContactsIcon />,
+        icon: <TodoIcon />,
       },
      
     ],
