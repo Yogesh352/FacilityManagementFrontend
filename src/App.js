@@ -4,6 +4,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import RuleCustomisation from "./pages/RuleCustomisation";
+import AdvancedMetrics from "./pages/AdvancedMetrics";
+import Forecast from "./pages/Forecast";
 
 function App() {
   return (
@@ -13,10 +15,9 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/rules" element={<RuleCustomisation />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          {/* <Route path="/members" element={<Members />} />
-          <Route path="/todo/pending" element={<Todo />} />
-          <Route path="/todo/completed" element={<CompletedTodo />} />
-          <Route path="/social" element={<Posts />} /> */}
+          <Route path="/forecast" element={<Forecast />} />
+          <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
+         
         </Routes>
       </Layout>
     </BrowserRouter>
