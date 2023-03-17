@@ -49,12 +49,12 @@ const Sidebar = () => {
                     key={link.name}
                     onClick={handleCloseSideBar}
                     style={() => ({
-                      backgroundColor: location.pathname.includes(link.name)
+                      backgroundColor: location.pathname.includes(link.to)
                         ? "#94c0db"
                         : "",
                     })}
                     className={() =>
-                      location.pathname.includes(link.name)
+                      location.pathname.includes(link.to)
                         ? activeLink
                         : normalLink
                     }

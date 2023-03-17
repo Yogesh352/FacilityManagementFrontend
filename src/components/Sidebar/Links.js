@@ -9,6 +9,16 @@ export const links = [
         to: "dashboard",
         icon: <TodoIcon />,
       },
+      {
+        name: "forecast",
+        to: "forecast",
+        icon: <TodoIcon />,
+      },
+      {
+        name: "advanced metrics",
+        to: "advancedmetrics",
+        icon: <TodoIcon />,
+      },
     ],
   },
 
