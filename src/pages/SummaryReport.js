@@ -1,8 +1,9 @@
 import React from 'react';
 import {Stack, Title, Container, Flex, Button, Text, Alert} from '@mantine/core';
 import MonthFilter from "../components/SummaryReport/MonthFilter";
-import { IconAlertCircle } from '@tabler/icons-react';
+
 import {useState} from 'react';
+import Popup from "../components/SummaryReport/Popup"
 
 const months = {
     "Jan": 1,
@@ -26,13 +27,15 @@ const SummaryReport = () => {
     const [endMonth, setEndMonth] = useState();
     const [endYear, setEndYear] = useState();
 
-    let validated = true
+    let wrongInput = false
+    const [validation, setValidated] = useState();
 
     function validateValues() {
-        if (startYear > endYear) {
-            validated = false
+        if (parseInt(startYear) > parseInt(endYear)) {
+            setValidated("true");
+            wrongInput = true;
         } else if (months[startMonth] > months[endMonth]) {
-            validated = false
+            wrongInput = true;
         }
     }
 
@@ -42,7 +45,7 @@ const SummaryReport = () => {
                 Summary Reports
             </Title>
             
-            <Flex direction='row' gap = 'xs' justify='left' align='flex-start'>
+            <Flex direction='row' justify='left' align='flex-start'>
                 <Container fluid='true' className="bg-transparent w-auto p-0 left-0 h-24">
                     <MonthFilter
                         title="From"
@@ -59,25 +62,25 @@ const SummaryReport = () => {
                     />
                 </Container>
 
-                <Container className="bg-transparent w-full h-24 pl-0 pt-6">
+                <Container className="bg-transparent w-auto h-24 pl-0 pt-6 pr-0">
                     <Button color='gray' variant='outline' className="" 
-                        onClick={()=> validateValues ? "Invalid": null}>
+                        onClick={validateValues}>
                         Generate
                     </Button>
-                    
-                    <Container>
-                        <Alert icon={<IconAlertCircle size="1rem" />} title="Bummer!" color="red">
-                            Something terrible happened! You made a mistake and there is no going back, your data was lost forever!
-                        </Alert>
-                    </Container>
-
                 </Container>
+
+                <Container className="bg-transparent w-full h-24 pl-2 pt-6">
+                    <Popup wrongInput={wrongInput}/>
+                    <Text>Something</Text>
+                </Container>
+
             </Flex>
                 
             
             <Text>
                 {startMonth}
                 {startYear}
+                {validation}
             </Text>
 
             <Text>
