@@ -6,7 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import RuleCustomisation from "./pages/RuleCustomisation";
 import AdvancedMetrics from "./pages/AdvancedMetrics";
 import Forecast from "./pages/Forecast";
-import Report from "./pages/Report";
+import SummaryReport from "./pages/SummaryReport";
 
 function App() {
   return (
@@ -18,7 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
           <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
-          <Route path="/summaryreport" element={<Report />} />
+          <Route path="/summaryreport" element={<SummaryReport />} />
          
         </Routes>
       </Layout>

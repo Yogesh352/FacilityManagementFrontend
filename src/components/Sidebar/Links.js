@@ -20,8 +20,8 @@ export const links = [
         icon: <TodoIcon />,
       },
       {
-        name: "summary reports",
-        to: "summaryreports",
+        name: "summary report",
+        to: "summaryreport",
         icon: <TodoIcon />,
       },
     ],
