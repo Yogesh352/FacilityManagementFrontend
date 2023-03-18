@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import RuleCustomisation from "./pages/RuleCustomisation";
 import AdvancedMetrics from "./pages/AdvancedMetrics";
 import Forecast from "./pages/Forecast";
+import FacilitiesCustomization from "./pages/FacilitiesCustomization";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
           <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
+          <Route path="/facilitiesCustomization" element={<FacilitiesCustomization />} />
          
         </Routes>
       </Layout>
