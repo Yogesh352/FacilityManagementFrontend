@@ -1,9 +1,15 @@
 import React from 'react'
+import { useState } from 'react';
 import { Stack, Box, Text, Title, Card, Image, Badge, Button, Group, Input } from "@mantine/core";
 import NumberSelection from './NumberSelection'
 import './RuleCustomizationHome.css'
 
 const BookingRules = () => {
+    const [credits, setCredits] = useState(1000);
+    const editCredits = (event) => {
+        setCredits(event.value)
+    };
+
     return (
         <Card 
             padding="lg" 
@@ -19,7 +25,8 @@ const BookingRules = () => {
                 <Text>Booking Credits for Users (per month)</Text>
                 <Input
                     variant="filled"
-                    value='1000'
+                    value={credits}
+                    onChange={editCredits}
                     sx={(theme) => ({
                         width: '70px'
                     })}

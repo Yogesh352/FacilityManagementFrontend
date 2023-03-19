@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import { NumberInput, Group, ActionIcon, NumberInputHandlers, rem } from '@mantine/core';
 import './RuleCustomizationHome.css'
 

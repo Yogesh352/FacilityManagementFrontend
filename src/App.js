@@ -19,7 +19,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
           <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
-          <Route path="/facilitiesCustomization" element={<FacilitiesCustomization />} />
+          <Route path="/facilities-customization" element={<FacilitiesCustomization />} />
          
         </Routes>
       </Layout>
