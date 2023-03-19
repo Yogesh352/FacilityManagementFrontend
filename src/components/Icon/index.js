@@ -9,6 +9,7 @@ import {
     HiPencil,
     HiExternalLink,
     HiPaperClip,
+    HiDownload,
   } from "react-icons/hi";
   import { MdOutlineCancel } from "react-icons/md";
   import { FiChevronLeft, FiArrowDownRight, FiArrowUpRight } from "react-icons/fi";
@@ -42,4 +43,5 @@ import {
   export const AttachmentIcon = HiPaperClip;
   export const UpIcon = FiArrowUpRight;
   export const DownIcon = FiArrowDownRight;
+  export const DownloadIcon = HiDownload;
   
