@@ -1,8 +1,12 @@
-import { Stack , List, Container, Text} from '@mantine/core';
+import { Stack , List, Container} from '@mantine/core';
 import { IconAlertCircle } from '@tabler/icons-react';
 import {useState} from 'react';
 import { Link } from "react-router-dom";
 import { DownloadIcon } from '../Icon/index';
+import ReactPDF from '@react-pdf/renderer';
+import Report from './Report';
+import * as ReactDOM from 'react-dom';
+import PdfRender from './PdfRender';
 
 
 const months = {
@@ -35,15 +39,19 @@ const PdfLists = ({arr}) => {
     
     console.log(arr);
 
-    function handleClick() {
+    function openWindow(month, year) {
 
+        var viewer = window.open('', '', 'width=300, height=300');
+        viewer.document.body.innerHTML = '<div id="report-viewer"></div>';
+        // ReactDOM.render(<Report />, viewer.document.getElementById('report-viewer'));
+        ReactDOM.render(<PdfRender />, viewer.document.getElementById('report-viewer'));
     }
 
     return (
         <Stack>
             <Container className="bg-trnasparent w-full p-0">
                 {arr.map((item) => (
-                    <Link key={item.month} className="block underline pt-5 border-b font-semibold">
+                    <Link key={item.month} className="block underline pt-5 border-b font-semibold" onClick={() => openWindow(item.month, item.year)}>
                         Summary Report for {months[item.month]} {item.year}
                         <DownloadIcon className="inline float-right"/>
                     </Link>
