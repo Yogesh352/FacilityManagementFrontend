@@ -35,58 +35,8 @@ const SummaryReport = () => {
     const [opened, setOpen] = useState(false);
     const[isClicked, setIsClicked] = useState(false);
 
-    
-    // var dict = {
-    //     0: [1, 2021],
-    //     1: [2, 2021],
-    //     2: [3, 2021],
-    // }
-
     const [values, setValues] = useState([]);
     const arr = []
-
-    // function validateValues() {
-    //     if (parseInt(startYear) > parseInt(endYear)) {
-    //         setValidated("true");
-    //         setOpen(opened);
-    //     } else if (months[startMonth] > months[endMonth]) {
-    //         setOpen(opened);
-    //     } else {
-    //         if (parseInt(startYear) == parseInt(endYear)) {
-    //             for (var month = months[startMonth]; month <= months[endMonth]; month++) {
-    //                 // dict[index++] = [month, parseInt(startYear)]
-    //                 arr.push({month: month, year: parseInt(startYear)})
-    //             }
-    //         }
-
-            
-
-    //         if (parseInt(startYear) != parseInt(endYear)) {
-    //             for (var month = months[startMonth]; month <= 12; month++) {
-    //                 // dict[index++] = [month, parseInt(startYear)]
-    //                 arr.push({month: month, year: parseInt(startYear)})
-    //             }
-
-    //             for (var year = parseInt(startYear)+1; year < parseInt(endYear); year++) {
-    //                 for (var month = 1; month <= 12; month++) {
-    //                     // dict[index] = [month, year]
-    //                     // index++
-    //                     arr.push({month: month, year: year})
-    //                 }
-    //             }
-
-    //             for (var month = 0; month <= months[endMonth]; month++) {
-    //                 // dict[index++] = [month, parseInt(endYear)]
-    //                 arr.push({month: month, year: parseInt(endYear)})
-    //             }
-    //         }
-    //         setValues(arr);
-    //     }
-
-        
-
-    //     console.log(arr)
-    // }
 
     function handleClose() {
         setOpen(false)
@@ -104,7 +54,6 @@ const SummaryReport = () => {
         } else {
             if (parseInt(startYear) == parseInt(endYear)) {
                 for (var month = months[startMonth]; month <= months[endMonth]; month++) {
-                    // dict[index++] = [month, parseInt(startYear)]
                     arr.push({month: month, year: parseInt(startYear)})
                 }
             }
@@ -113,21 +62,16 @@ const SummaryReport = () => {
 
             if (parseInt(startYear) != parseInt(endYear)) {
                 for (var month = months[startMonth]; month <= 12; month++) {
-                   
-                    // dict[index++] = [month, parseInt(startYear)]
                     arr.push({month: month, year: parseInt(startYear)})
                 }
 
                 for (var year = parseInt(startYear)+1; year < parseInt(endYear); year++) {
                     for (var month = 1; month <= 12; month++) {
-                        // dict[index] = [month, year]
-                        // index++=
                         arr.push({month: month, year: year})
                     }
                 }
 
                 for (var month = 0; month <= months[endMonth]; month++) {
-                    // dict[index++] = [month, parseInt(endYear)]
                     arr.push({month: month, year: parseInt(endYear)})
                 }
             }
