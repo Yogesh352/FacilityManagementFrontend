@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 import { DownloadIcon } from '../Icon/index';
 import ReactPDF from '@react-pdf/renderer';
 import Report from './Report';
-import * as ReactDOM from 'react-dom';
+// import * as ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
 import PdfRender from './PdfRender';
 
 
@@ -24,44 +25,34 @@ const months = {
     12: "Dec"
 }
 
-// const arr = [
-//     {
-//       month: 2,
-//       year: 2021,
-//     },
-//     {
-//       month: 3,
-//       year: 2021,
-//     }
-//   ];
 
-const PdfLists = ({arr}) => {
+
+const PdfLists = ({values}) => {
     
-    console.log(arr);
+    console.log(values);
+    const [listPdf, setListPdf] = useState(values);
 
     function openWindow(month, year) {
 
         var viewer = window.open('', '', 'width=300, height=300');
         viewer.document.body.innerHTML = '<div id="report-viewer"></div>';
-        // ReactDOM.render(<Report />, viewer.document.getElementById('report-viewer'));
-        ReactDOM.render(<PdfRender />, viewer.document.getElementById('report-viewer'));
+        ReactDOM.createRoot(viewer.document.getElementById('report-viewer')).render(<PdfRender />);
     }
 
     return (
         <Stack>
             <Container className="bg-trnasparent w-full p-0">
-                {arr.map((item) => (
+                {values.map((item) => (
                     <Link key={item.month} className="block underline pt-5 border-b font-semibold" onClick={() => openWindow(item.month, item.year)}>
                         Summary Report for {months[item.month]} {item.year}
                         <DownloadIcon className="inline float-right"/>
                     </Link>
                     )
                 )}
-            
             </Container>
         </Stack>
     )
-    
+
 }
 
 export default PdfLists

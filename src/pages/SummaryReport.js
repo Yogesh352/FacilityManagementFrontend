@@ -40,16 +40,8 @@ const SummaryReport = () => {
     //     2: [3, 2021],
     // }
 
-    var arr = [
-        // {
-        //     month: 2,
-        //     year: 2021,
-        // },
-        // {
-        //     month: 3,
-        //     year: 2021,
-        // }
-    ]
+    const [values, setValues] = useState([]);
+    const arr = []
 
     function validateValues() {
         if (parseInt(startYear) > parseInt(endYear)) {
@@ -87,7 +79,7 @@ const SummaryReport = () => {
                 arr.push({month: month, year: parseInt(endYear)})
             }
         }
-        
+        setValues(arr);
 
         console.log(arr)
     }
@@ -154,17 +146,17 @@ const SummaryReport = () => {
                 </Container>
 
                 <Container className="bg-transparent w-full h-24 pl-2 pt-6">
-                    
+                    <Modal opened={opened} title="Invalid Range" className="bg-black">
+                    </Modal>
                 </Container>
-                <Modal opened={opened} title="Invalid Range" className="bg-black">
-                </Modal>
+                
                 
 
             </Flex>
                 
             <Container className="bg-transparent w-full p-0 m-0 h-full">
                 <PdfLists 
-                    arr={arr}
+                    values={values}
                     />
             </Container>
 
@@ -172,23 +164,7 @@ const SummaryReport = () => {
 
             </Container>
 
-            
-            <Text>
-                {startMonth}
-                {startYear}
-                {validation}
-            </Text>
-
-            <Text>
-                {endMonth}
-                {endYear}
-            </Text>
-
         </Stack>
-        
-        // <div>
-        //     summary
-        // </div>
     )
 }
 
