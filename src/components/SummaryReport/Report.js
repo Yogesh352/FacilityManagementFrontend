@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { DownloadIcon } from '../Icon/index';
 import ReactPDF, { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import {data} from './Data';
+import FloorBreakdownTable from "../Dashboard/FloorBreakdownTable";
 
 const Report = () => {
 
@@ -24,6 +25,10 @@ const Report = () => {
                 <Text>
                     {data[0].body}
                 </Text>
+
+                <View>
+                    {/* <FloorBreakdownTable/> */}
+                </View>
             </Page>
         </Document>
     )

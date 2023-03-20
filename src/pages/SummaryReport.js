@@ -32,7 +32,9 @@ const SummaryReport = () => {
     let wrongInput = false
     const [validation, setValidated] = useState();
 
-    const [opened, setOpen] = useState();
+    const [opened, setOpen] = useState(false);
+    const[isClicked, setIsClicked] = useState(false);
+
     
     // var dict = {
     //     0: [1, 2021],
@@ -43,12 +45,62 @@ const SummaryReport = () => {
     const [values, setValues] = useState([]);
     const arr = []
 
-    function validateValues() {
+    // function validateValues() {
+    //     if (parseInt(startYear) > parseInt(endYear)) {
+    //         setValidated("true");
+    //         setOpen(opened);
+    //     } else if (months[startMonth] > months[endMonth]) {
+    //         setOpen(opened);
+    //     } else {
+    //         if (parseInt(startYear) == parseInt(endYear)) {
+    //             for (var month = months[startMonth]; month <= months[endMonth]; month++) {
+    //                 // dict[index++] = [month, parseInt(startYear)]
+    //                 arr.push({month: month, year: parseInt(startYear)})
+    //             }
+    //         }
+
+            
+
+    //         if (parseInt(startYear) != parseInt(endYear)) {
+    //             for (var month = months[startMonth]; month <= 12; month++) {
+    //                 // dict[index++] = [month, parseInt(startYear)]
+    //                 arr.push({month: month, year: parseInt(startYear)})
+    //             }
+
+    //             for (var year = parseInt(startYear)+1; year < parseInt(endYear); year++) {
+    //                 for (var month = 1; month <= 12; month++) {
+    //                     // dict[index] = [month, year]
+    //                     // index++
+    //                     arr.push({month: month, year: year})
+    //                 }
+    //             }
+
+    //             for (var month = 0; month <= months[endMonth]; month++) {
+    //                 // dict[index++] = [month, parseInt(endYear)]
+    //                 arr.push({month: month, year: parseInt(endYear)})
+    //             }
+    //         }
+    //         setValues(arr);
+    //     }
+
+        
+
+    //     console.log(arr)
+    // }
+
+    function handleClose() {
+        setOpen(false)
+    }
+
+    useEffect(() => {
+        
         if (parseInt(startYear) > parseInt(endYear)) {
-            setValidated("true");
-            setOpen(opened);
+            console.log('hello')
+            setValidated(true);
+            setOpen(true);
         } else if (months[startMonth] > months[endMonth]) {
-            setOpen(opened);
+            console.log('hello')
+            setOpen(true);
         } else {
             if (parseInt(startYear) == parseInt(endYear)) {
                 for (var month = months[startMonth]; month <= months[endMonth]; month++) {
@@ -61,6 +113,7 @@ const SummaryReport = () => {
 
             if (parseInt(startYear) != parseInt(endYear)) {
                 for (var month = months[startMonth]; month <= 12; month++) {
+                   
                     // dict[index++] = [month, parseInt(startYear)]
                     arr.push({month: month, year: parseInt(startYear)})
                 }
@@ -68,7 +121,7 @@ const SummaryReport = () => {
                 for (var year = parseInt(startYear)+1; year < parseInt(endYear); year++) {
                     for (var month = 1; month <= 12; month++) {
                         // dict[index] = [month, year]
-                        // index++
+                        // index++=
                         arr.push({month: month, year: year})
                     }
                 }
@@ -80,11 +133,10 @@ const SummaryReport = () => {
             }
             setValues(arr);
         }
+        setIsClicked(false);
 
-        
-
-        console.log(arr)
-    }
+    },[isClicked])
+    console.log(opened)
 
     return (
         <Stack>
@@ -110,14 +162,14 @@ const SummaryReport = () => {
                 </Container>
 
                 <Container className="bg-transparent w-auto h-24 pl-0 pt-6 pr-0">
-                    <Button color='gray' variant='outline' className="" onClick={validateValues}
+                    <Button color='gray' variant='outline' className="" onClick={()=>{setIsClicked(true)}}
                         >
                         Generate
                     </Button>
                 </Container>
 
                 <Container className="bg-transparent w-full h-24 pl-2 pt-6">
-                    <Modal opened={opened} title="Invalid Range" className="bg-black">
+                    <Modal opened={opened} onClose ={handleClose} title="Invalid Range" className="bg-black">
                     </Modal>
                 </Container>
                 
