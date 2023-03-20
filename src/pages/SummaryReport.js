@@ -48,7 +48,7 @@ const SummaryReport = () => {
             console.log('hello')
             setValidated(true);
             setOpen(true);
-        } else if (months[startMonth] > months[endMonth]) {
+        } else if ((months[startMonth] > months[endMonth]) && (parseInt(startYear) == parseInt(endYear)) ) {
             console.log('hello')
             setOpen(true);
         } else {
@@ -71,7 +71,7 @@ const SummaryReport = () => {
                     }
                 }
 
-                for (var month = 0; month <= months[endMonth]; month++) {
+                for (var month = 1; month <= months[endMonth]; month++) {
                     arr.push({month: month, year: parseInt(endYear)})
                 }
             }
