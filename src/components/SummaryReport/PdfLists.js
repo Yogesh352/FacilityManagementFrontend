@@ -34,7 +34,7 @@ const PdfLists = ({values}) => {
 
     function openWindow(month, year) {
 
-        var viewer = window.open('', '', 'width=300, height=300');
+        var viewer = window.open('', '', 'width=700, height=500');
         viewer.document.body.innerHTML = '<div id="report-viewer"></div>';
         ReactDOM.createRoot(viewer.document.getElementById('report-viewer')).render(<PdfRender />);
     }

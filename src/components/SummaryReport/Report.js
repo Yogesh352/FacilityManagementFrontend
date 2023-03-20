@@ -1,5 +1,5 @@
 import { Stack , List, Container} from '@mantine/core';
-import { IconAlertCircle } from '@tabler/icons-react';
+import { IconAlertCircle, IconBold } from '@tabler/icons-react';
 import {useState} from 'react';
 import { Link } from "react-router-dom";
 import { DownloadIcon } from '../Icon/index';
@@ -31,8 +31,9 @@ const Report = () => {
 
 const styles = StyleSheet.create({
     page: {padding: 20},
-    title: {fontSize: 30, color: 'black', fontWeight: 'bold', textDecoration: 'underline',},
-    header: {paddingTop: 10}
+    title: {fontSize: 30, color: 'black', fontWeight: 'bold', textDecoration: 'underline'},
+    header: {paddingTop: 10},
+    body: {paddingTop: 5}
   });
 
 
