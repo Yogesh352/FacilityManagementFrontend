@@ -36,14 +36,14 @@ const PdfLists = ({values}) => {
 
         var viewer = window.open('', '', 'width=700, height=500');
         viewer.document.body.innerHTML = '<div id="report-viewer"></div>';
-        ReactDOM.createRoot(viewer.document.getElementById('report-viewer')).render(<PdfRender />);
+        ReactDOM.createRoot(viewer.document.getElementById('report-viewer')).render(<a href='Report.pdf' target="_blank"/>);
     }
 
     return (
         <Stack>
             <Container className="bg-trnasparent w-full p-0">
                 {values.map((item) => (
-                    <Link key={item.month} className="block underline pt-5 border-b font-semibold" onClick={() => openWindow(item.month, item.year)}>
+                    <Link key={item.month} className="block underline pt-5 border-b font-semibold" onClick={() =>window.open('Report.pdf', '', 'width=700, height=500')}>
                         Summary Report for {months[item.month]} {item.year}
                         <DownloadIcon className="inline float-right"/>
                     </Link>
