@@ -1,0 +1,125 @@
+html,
+body {
+    margin: 0px;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.maincontainer {
+    display: flex;
+    height: 100%;
+    /* width: 100%; */
+    /* flex-direction: column; */
+}
+
+.sidebar {
+    /* flex-grow: 2; */
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+}
+.rightside {
+    /* flex-grow: 1; */
+    display: flex;
+    background-color: #e0e7ee;
+    height: 100%;
+    flex: 1 1 auto;
+    overflow-y: auto;
+    justify-content: center;
+    min-width: 900px;
+    /* padding-left: 30px; */
+    /* overflow-x: auto; */
+    /* position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px; */
+}
+
+.tagcontainer {
+    /* display: flex; */
+    /* flex-direction: row; */
+    /* flex-wrap: wrap; */
+    /* justify-self: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* padding-left: 100px; */
+}
+
+.tagcontainerhide {
+    display: none;
+}
+
+.title {
+    margin-left: 30px;
+}
+.addtagbutton {
+    margin-top: 20px;
+    /* font-size: ; */
+}
+
+.inputrow {
+    display: flex;
+    align-items: center;
+    justify-items: baseline;
+}
+/* .inputsmall {
+    width: 300px;
+} */
+.inputlarge {
+    width: 400px;
+}
+.inputname1 {
+    margin-left: 10px;
+    padding-right: 160px;
+    display: flex;
+    align-items: center;
+}
+.inputname2 {
+    margin-left: 10px;
+    padding-right: 160px;
+}
+.inputname3 {
+    margin-left: 10px;
+    padding-right: 125px;
+}
+.inputname4 {
+    margin-left: 10px;
+    padding-right: 50px;
+}
+.inputname5 {
+    margin-left: 10px;
+    padding-right: 140px;
+}
+
+.inputname6 {
+    margin-left: 10px;
+    padding-right: 80px;
+}
+.inputname7{
+    margin-left: 10px;
+    padding-right: 80px; 
+}
+.inputname8{
+    margin-left: 10px;
+    padding-right:45px; 
+}
+.submitrow {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    width: auto;
+}
+.sectionname{
+    min-height: 200px;
+    background-color: #e0e7ee;
+    border-radius: 10px;
+    padding: 10px;
+}
+.buildingcontainer{
+    justify-content: center;
+}
+.buildingcontainerhide{
+    display: none;
+}

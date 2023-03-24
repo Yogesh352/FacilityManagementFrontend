@@ -1,27 +1,21 @@
 import * as React from "react";
-import { TimePicker } from "antd";
-import { NativeSelect, Input, HoverCard } from "@mantine/core";
-// import { MDBContainer, MDBRow, MDBCol, MDBBtn } from "mdb-react-ui-kit";
-import { Moneybag } from "tabler-icons-react";
+import { HoverCard } from "@mantine/core";
 import PeopleIcon from "@mui/icons-material/People";
 import PaidIcon from "@mui/icons-material/Paid";
-import Button from "@mui/material/Button";
 import { IconClock } from "@tabler/icons-react";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 import DescriptionIcon from "@mui/icons-material/Description";
 import InfoIcon from "@mui/icons-material/Info";
-import dayjs from "dayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
-import "./Customization.css";
+import HistoryIcon from "@mui/icons-material/History";
+import "./CustomizationCard.css";
 
-export default function Customization({
+export default function CustomizationCard({
     tagName,
     startTime,
     endTime,
     bookingAmount,
     minStudents,
+    allowEarlyCheckout,
     description,
 }) {
     React.useEffect(() => {
@@ -174,7 +168,7 @@ export default function Customization({
                 <div className="inputrow">
                     <div className="titlename4">
                         <p style={{ fontSize: "14px" }}>
-                            Minimum Students Needed 
+                            Minimum Students Needed
                             <HoverCard width={280} shadow="md">
                                 <HoverCard.Target>
                                     <InfoIcon
@@ -201,6 +195,39 @@ export default function Customization({
                         >
                             <PeopleIcon style={{ marginRight: "3px" }} />
                             {minStudents}
+                        </p>
+                    </div>
+                </div>
+                <div className="inputrow">
+                    <div className="titlename6">
+                        <p style={{ fontSize: "14px" }}>
+                            Allow early checkout
+                            <HoverCard width={280} shadow="md">
+                                <HoverCard.Target>
+                                    <InfoIcon
+                                        fontSize="small"
+                                        style={{ color: "darkgray" }}
+                                    />
+                                </HoverCard.Target>
+                                <HoverCard.Dropdown>
+                                    <p>
+                                        Selecting this option wll allow users to
+                                        checkout of a facility early.
+                                    </p>
+                                </HoverCard.Dropdown>
+                            </HoverCard>
+                        </p>
+                    </div>
+                    <div className="field">
+                        <p
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                color: "darkgray",
+                            }}
+                        >
+                            <HistoryIcon style={{ marginRight: "3px" }} />
+                            {allowEarlyCheckout}
                         </p>
                     </div>
                 </div>

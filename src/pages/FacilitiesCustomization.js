@@ -1,22 +1,17 @@
 import * as React from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDisclosure } from "@mantine/hooks";
-import { Modal, Group } from "@mantine/core";
-import Customization from "../components/Rules/Customization";
+import { Modal } from "@mantine/core";
+import CustomizationCard from "../components/Rules/CustomizationCard";
 import InfoIcon from "@mui/icons-material/Info";
-
-// import { TimePicker } from "antd";
-import { ActionIcon } from "@mantine/core";
 import { TimeInput } from "@mantine/dates";
 import { IconClock } from "@tabler/icons-react";
-import { NativeSelect, Input, HoverCard } from "@mantine/core";
+import { Input, HoverCard, TextInput } from "@mantine/core";
 import PeopleIcon from "@mui/icons-material/People";
 import PaidIcon from "@mui/icons-material/Paid";
 import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
-import "./FacilitiesCustomization.css";
-import { SolarPower } from "@mui/icons-material";
+// import "./FacilitiesCustomization.css";
 
 export default function FacilitiesCustomization() {
     const [tags, setTags] = React.useState([
@@ -28,16 +23,7 @@ export default function FacilitiesCustomization() {
             minStudents: "3",
             description: "This room is for all the Group Study Rooms",
         },
-        // {
-        //     tagName: "Study Rooms",
-        //     startTime: "00:00",
-        //     endTime: "00:00",
-        //     bookingAmount: "30",
-        //     minStudents: "3",
-        //     description: "hello test",
-        // },
     ]);
-    // const ref = useRef<HTMLInputElement>();
     const [tag, setTag] = React.useState("");
     const [startTime, setStartTime] = React.useState("");
     const [endTime, setEndTime] = React.useState("");
@@ -79,7 +65,7 @@ export default function FacilitiesCustomization() {
 
             <div className="maincontainer">
                 {tags.map((tag) => (
-                    <Customization
+                    <CustomizationCard
                         tagName={tag.tagName}
                         startTime={tag.startTime}
                         endTime={tag.endTime}
@@ -135,7 +121,10 @@ export default function FacilitiesCustomization() {
                             </p>
                         </div>
                         <div>
-                            <Input
+                            <TextInput
+                                // withAsterisk
+                                // required
+                                // error="both below the input"
                                 className="inputsmall"
                                 icon={<MeetingRoomIcon />}
                                 placeholder="Tag"
