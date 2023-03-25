@@ -1,5 +1,5 @@
 import * as React from "react";
-import { HoverCard } from "@mantine/core";
+import { HoverCard, Title } from "@mantine/core";
 import PeopleIcon from "@mui/icons-material/People";
 import PaidIcon from "@mui/icons-material/Paid";
 import { IconClock } from "@tabler/icons-react";
@@ -39,7 +39,6 @@ export default function CustomizationCard({
                     Duplicate
                 </Button>
             </div> */}
-
             <div className="inputcontainer">
                 <div className="inputrow">
                     <div className="titlename1">
