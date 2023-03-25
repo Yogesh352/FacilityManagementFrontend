@@ -438,6 +438,7 @@ export default function Customization() {
     // ***********Everything Building Related Start***********
     const [buildingName, setBuldigName] = React.useState("");
     const [numberSection, setNumberSection] = React.useState("");
+    const [sectionNames, setSectionNames] = React.useState([]);
 
     const [
         openedBuildingModal,
@@ -817,6 +818,8 @@ export default function Customization() {
                             icon={<MeetingRoomIcon />}
                             placeholder="Number of Sections"
                             value={numberSection}
+                            max={10}
+                            type="number"
                             onChange={(e) => {
                                 setNumberSection(e.target.value);
                             }}
@@ -825,8 +828,24 @@ export default function Customization() {
 
                     <div className="sectionname">
                         <p style={{ paddingBottom: "10px" }}>Section Names</p>
-                        <div style={{ display: "flex" }}>
-                            <TextInput
+                        <div style={{ display: "flex", flexWrap: 'wrap' }}>
+                            {Array.from({length: numberSection}, (_,index) => (
+                                <TextInput
+                                    className="sectionNameInput"
+                                    icon={<EditIcon />}
+                                    placeholder="Section Name"
+                                    type="text"
+                                    key={index}
+                                    value={sectionNames[index] || ""}
+                                    onChange={(e) => {
+                                        const newSectionName = [...sectionNames];
+                                        newSectionName[index] = e.target.value;
+                                        setSectionNames(newSectionName)
+                                    }}
+                                    style={{ padding: "5px"}}
+                                />
+                            ))}
+                            {/* <TextInput
                                 className="inputsmall"
                                 icon={<EditIcon />}
                                 placeholder="Section 1"
@@ -855,7 +874,7 @@ export default function Customization() {
                                     setTagName(e.target.value);
                                 }}
                                 style={{ padding: "5px" }}
-                            />
+                            /> */}
                         </div>
                     </div>
                     <div

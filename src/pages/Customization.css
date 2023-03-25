@@ -64,9 +64,18 @@ body {
     align-items: center;
     justify-items: baseline;
 }
+
 /* .inputsmall {
     width: 300px;
 } */
+
+.sectionNameInput {
+    width: calc(33.33% - 10px);
+}
+
+.sectionNameInput:nth-child(3n+1){
+    clear: left;
+}
 .inputlarge {
     width: 400px;
 }
