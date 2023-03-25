@@ -372,15 +372,29 @@ CustomContentTag.propTypes = {
     nodeId: PropTypes.string.isRequired,
 };
 
-function CustomTreeItemBuilding(props) {
-    return <TreeItem ContentComponent={CustomContentBuilding} {...props} />;
+function CustomTreeItemBuilding({nameOfBuilding, nameOfSections}, props) {
+    return(
+        <TreeView defaultCollapseIcon={<ExpandMoreIcon />} defaultExpandIcon={<ChevronRightIcon />}>
+            <TreeItem nodeId={nameOfBuilding} label={nameOfBuilding} ContentComponent={CustomContentBuilding} {...props}>
+                {Object.keys(nameOfSections).map(section => (
+                    <CustomTreeItemSection key={section} section={section} nameOfSections={nameOfSections[section]} />
+                ))}
+            </TreeItem>
+        </TreeView>
+    );
 }
-function CustomTreeItemSection(props) {
-    return <TreeItem ContentComponent={CustomContentSection} {...props} />;
+function CustomTreeItemSection({section, nameOfSections}, props) {
+    return(
+        <TreeItem nodeId={section} label={section} ContentComponent={CustomContentSection} {...props}>
+            {nameOfSections.map(nameSection => (
+                <CustomTreeItemTag key={nameSection} tag={nameSection} />
+            ))}
+        </TreeItem>
+    );
 }
 
-function CustomTreeItemTag(props) {
-    return <TreeItem ContentComponent={CustomContentTag} {...props} />;
+function CustomTreeItemTag({tag}, props) {
+    return <TreeItem nodeId={tag} label={tag} ContentComponent={CustomContentTag} {...props}></TreeItem>
 }
 
 export default function Customization() {
@@ -436,22 +450,43 @@ export default function Customization() {
     // ***********Everything Tags Related End***********
 
     // ***********Everything Building Related Start***********
-    const [buildingName, setBuldigName] = React.useState("");
+    const [buildingArray, setBuildingArray] = React.useState({
+        "SOE": {
+            "Level 1": [],
+            "Level 2": [],
+            "Level 3": []
+        },
+        "SCIS": {
+            "Level 1": [],
+            "Level 2": [],
+            "Level 3": []
+        }   
+    });
+    const [buildingName, setBuildingName] = React.useState("");
     const [numberSection, setNumberSection] = React.useState("");
     const [sectionNames, setSectionNames] = React.useState([]);
-
+    
     const [
         openedBuildingModal,
         { open: openBuildingModal, close: closeBuildingModal },
     ] = useDisclosure(false);
 
     const onSaveBuilding = () => {
-        const temp = {
-            buildingName: buildingName,
-            numberSection: numberSection,
-        };
+        let sections = {}
+        for (let sectionName of sectionNames){
+            console.log(sectionName);
+            sections[sectionName] = []
+        }
+        setBuildingArray({
+            ...buildingArray, 
+            [buildingName]: sections  
+        })
+        setBuildingName("");
+        setNumberSection("");
+        setSectionNames([]);
         closeBuildingModal();
     };
+    // console.log(buildingArray)
 
     return (
         <div className="maincontainer">
@@ -469,19 +504,11 @@ export default function Customization() {
                         color: "#457497",
                     }}
                 >
-                    <CustomTreeItemBuilding nodeId="1" label="SOE">
-                        <CustomTreeItemSection nodeId="2" label="Section 1">
-                            <CustomTreeItemTag
-                                nodeId="3"
-                                label="Group Study Room"
-                            />
-                            <CustomTreeItemTag
-                                nodeId="4"
-                                label="Seminar Room"
-                            />
-                            <CustomTreeItemTag nodeId="5" label="Classroom" />
-                        </CustomTreeItemSection>
-                    </CustomTreeItemBuilding>
+                    <div>
+                        {Object.keys(buildingArray).map(nameOfBuilding => (
+                            <CustomTreeItemBuilding key={nameOfBuilding} nameOfBuilding={nameOfBuilding} nameOfSections={buildingArray[nameOfBuilding]} />
+                        ))}
+                    </div>
                 </TreeView>
                 <Button
                     style={{
@@ -803,7 +830,7 @@ export default function Customization() {
                                 placeholder="Name"
                                 value={buildingName}
                                 onChange={(e) => {
-                                    setBuldigName(e.target.value);
+                                    setBuildingName(e.target.value);
                                 }}
                             />
                         </div>
@@ -845,36 +872,6 @@ export default function Customization() {
                                     style={{ padding: "5px"}}
                                 />
                             ))}
-                            {/* <TextInput
-                                className="inputsmall"
-                                icon={<EditIcon />}
-                                placeholder="Section 1"
-                                value={tagName}
-                                onChange={(e) => {
-                                    setTagName(e.target.value);
-                                }}
-                                style={{ padding: "5px" }}
-                            />
-                            <TextInput
-                                className="inputsmall"
-                                icon={<EditIcon />}
-                                placeholder="Section 2"
-                                value={tagName}
-                                onChange={(e) => {
-                                    setTagName(e.target.value);
-                                }}
-                                style={{ padding: "5px" }}
-                            />
-                            <TextInput
-                                className="inputsmall"
-                                icon={<EditIcon />}
-                                placeholder="Section 3"
-                                value={tagName}
-                                onChange={(e) => {
-                                    setTagName(e.target.value);
-                                }}
-                                style={{ padding: "5px" }}
-                            /> */}
                         </div>
                     </div>
                     <div
