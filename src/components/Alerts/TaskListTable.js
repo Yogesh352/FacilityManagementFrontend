@@ -9,6 +9,9 @@ import {
   Grid,
   Menu,
   Button,
+  createStyles,
+  ScrollArea,
+  rem,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { MapIcon, OptionsIcon } from "../Icon";
@@ -78,12 +81,66 @@ const elements = [
     Time: "15:00",
     Status: "Incomplete",
   },
+  {
+    id: 8,
+    Date: "23/3/2023",
+    Task: "Turn off lights and aircon",
+    Location: "LKS Level 4 Section H",
+    Time: "15:00",
+    Status: "Incomplete",
+  },
+  {
+    id: 9,
+    Date: "23/3/2023",
+    Task: "Turn off lights and aircon",
+    Location: "LKS Level 4 Section H",
+    Time: "15:00",
+    Status: "Incomplete",
+  },
+  {
+    id: 10,
+    Date: "23/3/2023",
+    Task: "Turn off lights and aircon",
+    Location: "LKS Level 4 Section H",
+    Time: "15:00",
+    Status: "Incomplete",
+  },
 ];
+
+const useStyles = createStyles((theme) => ({
+  header: {
+    position: "sticky",
+    top: 0,
+    backgroundColor:
+      theme.colorScheme === "dark" ? theme.colors.dark[7] : theme.white,
+    transition: "box-shadow 150ms ease",
+
+    "&::after": {
+      content: '""',
+      position: "absolute",
+      left: 0,
+      right: 0,
+      bottom: 0,
+      borderBottom: `${rem(1)} solid ${
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[3]
+          : theme.colors.gray[2]
+      }`,
+    },
+  },
+
+  scrolled: {
+    boxShadow: theme.shadows.sm,
+  },
+}));
 
 const TaskListTable = () => {
   const [rowData, setRowData] = useState(elements);
   const [counter, setCounter] = useState(0);
   useEffect(() => {}, [counter]);
+
+  const { classes, cx } = useStyles();
+  const [scrolled, setScrolled] = useState(false);
 
   const rows = rowData.map((data) => (
     <tr key={data.id}>
@@ -211,26 +268,35 @@ const TaskListTable = () => {
           </Grid>
         </Stack>
       </Modal>
-      <Box className="bg-white w-full h-full p-4 rounded-lg">
-        <Stack className="h-full">
+      <Box className="bg-white w-full h-[85vh] p-4 rounded-lg">
+        <Stack className="h-[85vh]">
           <Title order={2}>Task List</Title>
 
-          <Box className="h-full  w-full align-center border-customblue border-2 p-10 rounded-xl">
+          <Box className="h-[72vh]  w-full align-center border-customblue border-2 p-10 rounded-xl">
             <Box className="overflow-scroll scrollbar-hide h-full">
-              <Table className="border-2  border-gray-300 rounded-lg h-[95%] ">
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Task</th>
-                    <th>Location</th>
-                    <th>Time</th>
-                    <th>Status</th>
-                    <th>Map</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>{rows}</tbody>
-              </Table>
+              <ScrollArea
+                h={420}
+                onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
+              >
+                <Table className="border-2  border-gray-300 rounded-lg h-[95%] ">
+                  <thead
+                    className={cx(classes.header, {
+                      [classes.scrolled]: scrolled,
+                    })}
+                  >
+                    <tr>
+                      <th>Date</th>
+                      <th>Task</th>
+                      <th>Location</th>
+                      <th>Time</th>
+                      <th>Status</th>
+                      <th>Map</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>{rows}</tbody>
+                </Table>
+              </ScrollArea>
             </Box>
           </Box>
         </Stack>
