@@ -15,8 +15,8 @@ export const links = [
         icon: <TodoIcon />,
       },
       {
-        name: "advanced metrics",
-        to: "advancedmetrics",
+        name: "detailed metrics",
+        to: "detailedmetrics",
         icon: <TodoIcon />,
       },
       {
