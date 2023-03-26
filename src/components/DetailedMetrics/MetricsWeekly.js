@@ -141,3 +141,32 @@ energyConsumptionDataW.set("SOE", {
     fill: "origin",
   },
 });
+
+energyConsumptionDataW.set("SOSS", {
+  consumption: {
+    label: "SOSS",
+    lineTension: 0.5,
+    data: [20.96, 65.06, 15.46, 34.46, 53.55, 24.52, 31.24, 59.1],
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    fill: "origin",
+  },
+  cost: {
+    label: "SOSS",
+    data: [100, 110, 110.12, 130.46, 120.55, 40.52, 100.24, 90.1],
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    lineTension: 0.5,
+  
+    fill: "origin",
+  },
+  occupancy: {
+    label: "SOSS",
+    data: [72, 80, 30.46, 40.46, 89.55, 90.52, 30.24, 79.1],
+    lineTension: 0.5,
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    fill: "origin",
+  },
+});
+

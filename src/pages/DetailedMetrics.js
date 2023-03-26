@@ -7,12 +7,9 @@ const DetailedMetrics = () => {
    
       <Stack className="h-full">
         <Grid className="w-full h-full" columns={24}>
-          {/* <Grid.Col span={1} /> */}
           <Grid.Col span={24}>
             <DetailedMetricsCharts />
           </Grid.Col>
-
-          {/* <Grid.Col span={1} /> */}
         </Grid>
       </Stack>
     

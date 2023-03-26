@@ -9,6 +9,7 @@ import Forecast from "./pages/Forecast";
 import SummaryReport from "./pages/SummaryReport";
 import FacilitiesCustomization from "./pages/FacilitiesCustomization";
 import DetailedMetrics from "./pages/DetailedMetrics";
+import TaskList from "./pages/TaskList";
 
 function App() {
   return (
@@ -21,8 +22,11 @@ function App() {
           <Route path="/forecast" element={<Forecast />} />
           <Route path="/detailedmetrics" element={<DetailedMetrics />} />
           <Route path="/summaryreport" element={<SummaryReport />} />
-          <Route path="/facilitiesCustomization" element={<FacilitiesCustomization />} />
-         
+          <Route
+            path="/facilitiesCustomization"
+            element={<FacilitiesCustomization />}
+          />
+          <Route path="/tasklist" element={<TaskList />} />
         </Routes>
       </Layout>
     </BrowserRouter>
