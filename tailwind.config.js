@@ -2,10 +2,17 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        customblue: "#94C0DB",
+      },
+    },
   },
   plugins: [
-    // ...
+
     require("tailwind-scrollbar"),
+
+    require('tailwind-scrollbar-hide')
+
   ],
 };

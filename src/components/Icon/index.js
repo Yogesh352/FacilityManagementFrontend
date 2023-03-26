@@ -2,6 +2,7 @@ import {
   HiOutlineTemplate,
   HiOutlineClipboardList,
   HiOutlineShieldCheck,
+
   HiOutlineChatAlt2,
   HiMenu,
   HiBell,
@@ -15,6 +16,21 @@ import {
   HiPaperClip,
   HiUserGroup,
   HiOutlineDocumentAdd
+
+  HiOutlineBadgeCheck,
+  HiOutlineChartBar,
+  HiOutlineChatAlt2,
+  HiMenu,
+  HiOutlineDotsVertical,
+  HiOutlineClipboard,
+  HiBell,
+  HiOutlineUserCircle,
+  HiPencil,
+  HiExternalLink,
+  HiPaperClip,
+  HiDownload,
+  HiOutlineMap,
+
 } from "react-icons/hi";
 import { MdOutlineCancel } from "react-icons/md";
 import {
@@ -29,6 +45,10 @@ import {
   AiOutlineCalendar,
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
+
+  AiOutlineFileExcel,
+  AiOutlineFilePdf,
+
 } from "react-icons/ai";
 
 export const DashboardIcon = HiOutlineTemplate;
@@ -45,6 +65,7 @@ export const ContactsIcon = IoMdContacts;
 export const MenufoldIcon = AiOutlineMenuFold;
 export const MenuunfoldIcon = AiOutlineMenuUnfold;
 export const EditIcon = HiPencil;
+
 //   export const DropdownMenuIcon = IconDots;
 //   export const DeleteIcon = IconTrash;
 export const AttachmentIcon = HiPaperClip;
@@ -57,3 +78,19 @@ export const ClockIcon = HiOutlineClock;
 export const CostIcon = HiOutlineCurrencyDollar;
 export const StudentsIcon = HiUserGroup;
 export const DescriptionIcon = HiOutlineDocumentAdd;
+
+export const MapIcon = HiOutlineMap;
+//   export const DropdownMenuIcon = IconDots;
+//   export const DeleteIcon = IconTrash;
+export const ExpandIcon = HiExternalLink;
+export const AttachmentIcon = HiPaperClip;
+export const UpIcon = FiArrowUpRight;
+export const DownIcon = FiArrowDownRight;
+export const DownloadIcon = HiDownload;
+export const OptionsIcon = HiOutlineDotsVertical;
+export const ReportsIcon = HiOutlineClipboard;
+export const MetricsIcon = HiOutlineChartBar;
+export const RulesIcon = HiOutlineBadgeCheck;
+export const ExcelIcon = AiOutlineFileExcel;
+export const PdfIcon = AiOutlineFilePdf;
+
