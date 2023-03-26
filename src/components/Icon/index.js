@@ -29,6 +29,8 @@ import {
   AiOutlineCalendar,
   AiOutlineMenuFold,
   AiOutlineMenuUnfold,
+  AiOutlineFileExcel,
+  AiOutlineFilePdf,
 } from "react-icons/ai";
 
 export const DashboardIcon = HiOutlineTemplate;
@@ -57,3 +59,5 @@ export const OptionsIcon = HiOutlineDotsVertical;
 export const ReportsIcon = HiOutlineClipboard;
 export const MetricsIcon = HiOutlineChartBar;
 export const RulesIcon = HiOutlineBadgeCheck;
+export const ExcelIcon = AiOutlineFileExcel;
+export const PdfIcon = AiOutlineFilePdf;

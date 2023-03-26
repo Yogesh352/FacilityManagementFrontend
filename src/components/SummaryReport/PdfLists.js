@@ -11,13 +11,14 @@ import {
 import { IconAlertCircle } from "@tabler/icons-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { DownloadIcon } from "../Icon/index";
+import { DownloadIcon, ExcelIcon, PdfIcon } from "../Icon/index";
 import ReactPDF from "@react-pdf/renderer";
 // import Report from './Report';
 // import * as ReactDOM from 'react-dom';
 import ReactDOM from "react-dom/client";
 // import PdfRender from './PdfRender';
 import pdf from "./Report.pdf";
+import excel from "./Report.xlsx";
 
 const useStyles = createStyles((theme) => ({
   header: {
@@ -68,7 +69,7 @@ const PdfLists = ({ values }) => {
   }, [values]);
   const rows = data.map((element) => (
     <tr key={element.name}>
-      <td className="w-[95%]">
+      <td className="w-[90%]">
         <a
           href={pdf}
           target="_blank"
@@ -78,15 +79,26 @@ const PdfLists = ({ values }) => {
           Summary Report for {months[element.month]} {element.year}
         </a>
       </td>
-      <td className="w-[5%]">
+      <td className="w-[10%] flex items-center">
+         <a
+          href={excel}
+          target="_blank"
+          rel="noreferrer"
+          className="py-2 font-semibold px-2"
+          download
+        >
+          <ExcelIcon size='17'/>
+        </a>
         <a
           href={pdf}
           target="_blank"
           rel="noreferrer"
-          className="block py-2 font-semibold"
+          className="py-2 font-semibold "
+          download
         >
-          <DownloadIcon />
+          <PdfIcon size='17' />
         </a>
+        
       </td>
     </tr>
   ));
@@ -98,7 +110,7 @@ const PdfLists = ({ values }) => {
   return (
     <Box className="overflow-scroll scrollbar-hide w-full h-[95%]">
       <ScrollArea
-        h={350}
+        h={300}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
         <Table className="border-2  w-full border-gray-300 rounded-lg h-[95%]">
