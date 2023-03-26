@@ -67,54 +67,86 @@ const CustomContentBuilding = React.forwardRef(
             handleSelection(event);
         };
 
-        const handleAddSectionClick = (event) => {
-            alert("add section button clicked");
+        const [openedSectionModal, { open: openSectionModal, close: closeSectionModal }] = useDisclosure(false);
+        const [newSectionName, setNewSectionName] = React.useState("");
+        const handleSectionName = (event) => {
+            setNewSectionName(event.target.value);
+        };
+        const saveSection = () => {
+            closeSectionModal();
+            console.log(newSectionName);
         };
 
         return (
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-            <div
-                className={clsx(className, classes.root, {
-                    [classes.expanded]: expanded,
-                    [classes.selected]: selected,
-                    [classes.focused]: focused,
-                    [classes.disabled]: disabled,
-                })}
-                onMouseDown={handleMouseDown}
-                ref={ref}
-            >
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <div>
                 <div
-                    onClick={handleExpansionClick}
-                    className={classes.iconContainer}
+                    className={clsx(className, classes.root, {
+                        [classes.expanded]: expanded,
+                        [classes.selected]: selected,
+                        [classes.focused]: focused,
+                        [classes.disabled]: disabled,
+                    })}
+                    onMouseDown={handleMouseDown}
+                    ref={ref}
                 >
-                    {icon}
+                    {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                    <div
+                        onClick={handleExpansionClick}
+                        className={classes.iconContainer}
+                    >
+                        {icon}
+                    </div>
+                    <Typography
+                        onClick={handleBuildingSelectionClick}
+                        component="div"
+                        className={classes.label}
+                        style={{ fontWeight: "bolder", fontSize: "20px" }}
+                    >
+                        {label}
+                    </Typography>
+                    <Button
+                        style={{
+                            // "margin-right": "100px",
+                            textTransform: "none",
+                            borderColor: "red",
+                            width: "200px",
+                            backgroundColor: "#9DBFD8",
+                            borderRadius: "50px",
+                            color: "white",
+                            height: "20px",
+                        }}
+                        onClick={openSectionModal}
+                    >
+                        + Add section
+                    </Button>
                 </div>
-                <Typography
-                    onClick={handleBuildingSelectionClick}
-                    component="div"
-                    className={classes.label}
-                    style={{ fontWeight: "bolder", fontSize: "20px" }}
-                >
-                    {label}
-                </Typography>
-                <Button
-                    style={{
-                        // "margin-right": "100px",
-                        textTransform: "none",
-                        borderColor: "red",
-                        width: "200px",
-                        backgroundColor: "#9DBFD8",
-                        borderRadius: "50px",
-                        color: "white",
-                        height: "20px",
-                    }}
-                    onClick={() => {
-                        handleAddSectionClick();
-                    }}
-                >
-                    + Add section
-                </Button>
+
+                {/* Add Section Modal */}
+                <Modal opened={openedSectionModal} onClose={closeSectionModal} title="Add Section" centered style={{ margin: "10px"}}>
+                    <TextInput
+                        icon={<EditIcon />}
+                        placeholder="Section Name"
+                        type="text"
+                        onChange={handleSectionName}
+                    />
+                    <div
+                        style={{ display: "flex", justifyContent: "flex-end" }}
+                    >
+                        <Button
+                            variant="outlined"
+                            style={{
+                                // "margin-right": "100px",
+                                textTransform: "none",
+                                color: "grey",
+                                marginTop: "20px",
+                            }}
+                            onClick={() => {saveSection();}}
+                        >
+                            Add Section
+                        </Button>
+                    </div>
+                </Modal>
             </div>
         );
     }
@@ -501,7 +533,7 @@ export default function Customization() {
     const [buildingName, setBuildingName] = React.useState("");
     const [numberSection, setNumberSection] = React.useState("");
     const [sectionNames, setSectionNames] = React.useState([]);
-    
+
     const [
         openedBuildingModal,
         { open: openBuildingModal, close: closeBuildingModal },
