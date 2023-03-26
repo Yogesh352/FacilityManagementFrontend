@@ -7,7 +7,7 @@ import {
   Stack,
   Text,
 } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { data } from "../Dashboard/BuildingData";
 import DetailedMetricsGraphs from "./DetailedMetricsGraphs";
 import { metricsData } from "./MetricsWeekly";
@@ -15,6 +15,15 @@ import { metricsData } from "./MetricsWeekly";
 const DetailedMetricsCharts = () => {
   const [timerange, setTimerange] = useState("1");
   const [metric, setMetric] = useState("Energy Consumption");
+  const [unit, setUnit] = useState("KwH");
+
+  useEffect(() => {
+    metric === "Energy Consumption"
+      ? setUnit("(kWh)")
+      : metric === "Energy Cost"
+      ? setUnit("($)")
+      : setUnit("(%)");
+  }, [metric]);
 
   const [buildings, setBuildings] = useState(["SOB"]);
   return (
@@ -33,7 +42,9 @@ const DetailedMetricsCharts = () => {
         <Box className="h-[90%] w-full border-customblue border-2 p-10 rounded-xl">
           <Stack className="h-full">
             <Group position="apart">
-              <Text className="font-semibold text-xl">{metric}</Text>
+              <Text className="font-semibold">
+                <span className="text-xl">{metric} </span> <span> {unit}</span>
+              </Text>
               <Group>
                 <SegmentedControl
                   value={timerange}
@@ -55,7 +66,7 @@ const DetailedMetricsCharts = () => {
             <DetailedMetricsGraphs
               timerange={timerange}
               selectedBuildings={buildings}
-              metric = {metric}
+              metric={metric}
             />
           </Stack>
         </Box>
