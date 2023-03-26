@@ -4,10 +4,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 import Dashboard from "./pages/Dashboard";
 import RuleCustomisation from "./pages/RuleCustomisation";
-import AdvancedMetrics from "./pages/AdvancedMetrics";
+import AdvancedMetrics from "./pages/DetailedMetrics";
 import Forecast from "./pages/Forecast";
 import SummaryReport from "./pages/SummaryReport";
 import FacilitiesCustomization from "./pages/FacilitiesCustomization";
+import DetailedMetrics from "./pages/DetailedMetrics";
+import TaskList from "./pages/TaskList";
 
 function App() {
   return (
@@ -18,10 +20,13 @@ function App() {
           <Route path="/rules" element={<RuleCustomisation />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/forecast" element={<Forecast />} />
-          <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
+          <Route path="/detailedmetrics" element={<DetailedMetrics />} />
           <Route path="/summaryreport" element={<SummaryReport />} />
-          <Route path="/facilitiesCustomization" element={<FacilitiesCustomization />} />
-         
+          <Route
+            path="/facilitiesCustomization"
+            element={<FacilitiesCustomization />}
+          />
+          <Route path="/tasklist" element={<TaskList />} />
         </Routes>
       </Layout>
     </BrowserRouter>
