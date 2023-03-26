@@ -57,7 +57,7 @@ const SingleLevel = ({
   const [openTagModal, setopenTagModal] = useState(false);
   const [chosenLevel, setChosenLevel] = useState();
   const [newTag, setNewTag] = useState();
-
+  const margin = `ml-${item.ml}`;
   return (
     <>
       <Modal
@@ -97,7 +97,7 @@ const SingleLevel = ({
       <ListItem button>
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText
-          className={`ml-${item.ml}`}
+          className={margin}
           primary={
             <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
               {item.title}
@@ -145,10 +145,15 @@ const MultiLevel = ({
   const [openSectionModal, setopenSectionModal] = useState(false);
   const [chosenBuilding, setChosenBuilding] = useState();
   const [newSection, setNewSection] = useState();
+  const [margin, setMargin] = useState(`ml-${item.ml}`);
 
   useEffect(() => {
     console.log("Hello");
   }, [facilities]);
+
+  useEffect(() => {
+    setMargin(`ml-${item.ml}`);
+  }, [item]);
 
   const handleClick = () => {
     setOpen((prev) => !prev);
@@ -231,17 +236,14 @@ const MultiLevel = ({
       <Group>
         <ListItem button className="w-[1/2]">
           {open ? (
-            <ExpandIcon
-              onClick={handleClick}
-              className={`ml-${item.ml} mr-5`}
-            />
+            <ExpandIcon onClick={handleClick} className={`${margin} mr-5`} />
           ) : (
-            <RightIcon onClick={handleClick} className={`ml-${item.ml} mr-5`} />
+            <RightIcon onClick={handleClick} className={`${margin} mr-5`} />
           )}
           {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
 
           <ListItemText
-            className={`ml-${item.ml}`}
+            className={margin}
             onClick={() => setClicked(item)}
             primary={
               <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
@@ -283,6 +285,7 @@ const MultiLevel = ({
         <List component="div" disablePadding>
           {children.map((child, key) => (
             <MenuItem
+              className={`ml-${item.ml}`}
               key={key}
               item={child}
               selected={selected}

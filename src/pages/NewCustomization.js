@@ -31,16 +31,43 @@ const NewCustomization = () => {
   const [updateFacilities, setUpdateFacilities] = useState(facilities);
   const [openBuildingModal, setOpenBuildingModal] = useState(false);
   const [numberOfSections, setNumberOfSections] = useState(0);
+  const [levelAddingTo, setLevelAddingTo] = useState();
   const [buildingInfo, setBuildingInfo] = useState({
     buildingName: "",
     sectionNames: [],
   });
 
+  const [openTagModal, setOpenTagModal] = useState(false);
+
   const [selected, setSelected] = useState();
+
+  const [newTag, setNewTag] = useState({
+    title: "",
+    ml: 8,
+    text: "sm",
+    rules: {
+      availability: [],
+      bookingAmount: 0,
+      minStudents: 0,
+      earlyCheckout: false,
+      roomDescription: "",
+    },
+  });
+
+  const [minStudents, setMinStudents] = useState(0);
+  const [newBookingAmount, setBookingAmount] = useState(0);
+  const [newTagCounter, setNewTagCounter] = useState(0);
+
+  useEffect(() => {
+    console.log(minStudents);
+    setNewTag({ ...newTag, minStudents: minStudents });
+    setNewTag({ ...newTag, bookingAmount: newBookingAmount });
+  }, [minStudents, newBookingAmount]);
 
   useEffect(() => {
     console.log("Hello");
   }, [numberOfSections]);
+
   const [newBuilding, setNewBuilding] = useState({
     icon: <LocalLibraryOutlinedIcon />,
     isBuilding: true,
@@ -140,188 +167,444 @@ const NewCustomization = () => {
           </Grid.Col>
         </Grid>
       </Modal>
-      <Grid.Col span={4}>
-        <FacilitiesSidebar
-          facilities={facilities}
-          selected={selected}
-          setSelected={setSelected}
-        />
-        <Group position="right">
-          <Button
-            leftIcon={<PlusIcon />}
-            className="text-black border-black mt-20"
-            onClick={() => {
-              setOpenBuildingModal(true);
-            }}
-            variant="outline"
-            size="xs"
-          >
-            Add Buildings
-          </Button>
-        </Group>
-      </Grid.Col>
-      <Grid.Col span={8}>
-        <Box className=" h-[85vh] overflow-scroll scrollbar overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-track-gray-100 w-full p-4 bg-blue-500">
-          <Stack className="h-full w-full ">
-            {selected?.isBuilding &&
-              selected.items.map((level) => {
-                return (
-                  <Stack>
-                    <Text className="font-bold text-lg">
-                      {selected?.title + " "}
-                      {level.title}
-                    </Text>
-                    {level.items.map((tag) => {
-                      return (
-                        <Box className="border-black border-2 p-2 rounded-xl w-full h-full">
-                          <Grid>
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Name of tag</Text>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                              <TextInput
-                                icon={<DomainAddIcon />}
-                                variant="unstyled"
-                                className="border-2 border-black rounded-xl px-2"
-                                value={tag.title}
-                              />
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Availability</Text>
-                            </Grid.Col>
-                            <Grid.Col span={3}>
-                              <TextInput
-                                icon={<ClockIcon />}
-                                variant="unstyled"
-                                className="border-2 border-black rounded-xl px-2"
-                                value={tag.rules.availability[0]}
-                              />
-                            </Grid.Col>
-                            <Grid.Col span={3}>
-                              <TextInput
-                                icon={<ClockIcon />}
-                                variant="unstyled"
-                                className="border-2 border-black rounded-xl px-2"
-                                value={tag.rules.availability[1]}
-                              />
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Booking Amount</Text>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                              <TextInput
-                                icon={<CostIcon />}
-                                variant="unstyled"
-                                className="border-2 border-black rounded-xl px-2"
-                                value={tag.rules.bookingAmount}
-                              />
-                            </Grid.Col>
 
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Min No Of Students</Text>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                              <TextInput
-                                icon={<StudentsIcon />}
-                                variant="unstyled"
-                                className="border-2 border-black rounded-xl px-2"
-                                value={tag.rules.minStudents}
-                              />
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Allow Early Checkout</Text>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                              <Switch
-                                checked={tag.rules.earlyCheckout}
-                                className="mt-2"
-                                color="dark"
-                                // onChange={(event) =>
-                                //   setChecked(event.currentTarget.checked)
-                                // }
-                              />
-                            </Grid.Col>
-                            <Grid.Col span={4}>
-                              <Text className="mt-2">Room Description</Text>
-                            </Grid.Col>
-                            <Grid.Col span={6}>
-                              <TextArea
-                                variant="unstyled"
-                                className="border-2 border-black bg-transparent rounded-xl px-2"
-                                value={tag.rules.roomDescription}
-                              />
-                            </Grid.Col>
-                          </Grid>
-                        </Box>
-                      );
-                    })}
-                  </Stack>
-                );
-              })}
-            {selected?.isLevel
-              ? selected.items.map((tag) => {
+      <Modal
+        opened={openTagModal}
+        onClose={() => {
+          setOpenTagModal(false);
+        }}
+        title="Add Tag"
+        size="lg"
+      >
+        <Grid>
+          <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Name of tag</Text>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <TextInput
+              icon={<DomainAddIcon />}
+              variant="unstyled"
+              className="border-2 border-gray-400 rounded-xl px-2"
+              value={newTag.title}
+              onChange={(e) => {
+                setNewTag({ ...newTag, title: e.target.value });
+              }}
+            />
+          </Grid.Col>
+          {/* <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Availability</Text>
+          </Grid.Col>
+          <Grid.Col span={3}>
+            <TextInput
+              icon={<ClockIcon />}
+              variant="unstyled"
+              className="border-2 border-gray-400 rounded-xl px-2"
+              value={newTag?.availability && newTag.availability[0]}
+              onChange={(e) => {
+                setNewTag(...newTag, (newTag.availability[0] = e.target.value));
+              }}
+              //   value={tag.rules.availability[0]}
+            />
+          </Grid.Col>
+          <Grid.Col span={3}>
+            <TextInput
+              icon={<ClockIcon />}
+              variant="unstyled"
+              className="border-2 border-gray-400 rounded-xl px-2"
+              value={newTag?.availability && newTag.availability[1]}
+              onChange={(e) => {
+                setNewTag(...newTag, (newTag.availability: newTag.availability));
+              }}
+            />
+          </Grid.Col> */}
+          <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Booking Amount</Text>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <NumberInput
+              icon={<CostIcon />}
+              variant="unstyled"
+              className="border-2 border-gray-400 rounded-xl px-2"
+              value={newBookingAmount}
+              onChange={setBookingAmount}
+              //   value={tag.rules.bookingAmount}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Min No Of Students</Text>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <NumberInput
+              icon={<StudentsIcon />}
+              variant="unstyled"
+              className="border-2 border-gray-400 rounded-xl px-2"
+              //   value={tag.rules.minStudents}
+              value={minStudents}
+              onChange={setMinStudents}
+            />
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Allow Early Checkout</Text>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Switch
+              //   checked={tag.rules.earlyCheckout}
+              className="mt-2"
+              color="dark"
+              value={newTag.earlyCheckout}
+              onChange={(e) => {
+                setNewTag({ ...newTag, earlyCheckout: e.target.checked });
+              }}
+            />
+          </Grid.Col>
+          <Grid.Col span={4}>
+            <Text className="mt-2 font-semibold">Room Description</Text>
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <TextArea
+              variant="unstyled"
+              className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
+              value={newTag.roomDescription}
+              onChange={(e) => {
+                setNewTag({ ...newTag, roomDescription: e.target.value });
+              }}
+            />
+          </Grid.Col>
+          <Group className="w-full" position="right">
+            <Button
+              variant="outline"
+              className="border-black text-black"
+              onClick={() => {
+                console.log(newTag);
+                setOpenTagModal(false);
+                levelAddingTo?.items?.push(newTag);
+              }}
+              onSubmit={() => {
+               
+              }}
+            >
+              Save
+            </Button>
+          </Group>
+        </Grid>
+      </Modal>
+
+      <Grid.Col span={12} className=" h-[85vh] ">
+        <Group className="w-full h-full" spacing={0}>
+          <Box className="h-[85vh] w-[35%] border-2 rounded-tl-xl rounded-bl-xl border-gray-400 bg-lighterblue p-4">
+            <FacilitiesSidebar
+              facilities={facilities}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Group position="right">
+              <Button
+                leftIcon={<PlusIcon />}
+                className="text-black border-black mt-20"
+                onClick={() => {
+                  setOpenBuildingModal(true);
+                }}
+                variant="outline"
+                size="xs"
+              >
+                Add Buildings
+              </Button>
+            </Group>
+          </Box>
+
+          <Box className=" h-[85vh]  overflow-scroll scrollbar border-2 border-gray-400 border-l-0 rounded-tr-xl rounded-br-xl overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-track-gray-100 w-[65%] p-4  pb-30 bg-slightlydarker">
+            <Stack className="h-full w-full ">
+              {selected?.isBuilding &&
+                selected.items.map((level) => {
                   return (
-                    <Box className="border-black border-2 p-2 rounded-xl w-full h-full">
+                    <Stack>
+                      <Group className="w-full" position="apart">
+                        <Text className="font-bold text-lg">
+                          {selected?.title + " "}
+                          {level.title}
+                        </Text>
+                        <Button
+                          leftIcon={<PlusIcon />}
+                          size="xs"
+                          className="text-black border-black"
+                          variant="outline"
+                          onClick={async () => {
+                            await setLevelAddingTo(level);
+                            setOpenTagModal(true);
+                          }}
+                        >
+                          Add New Tag
+                        </Button>
+                      </Group>
+                      {level.items.map((tag) => {
+                        return (
+                          <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-full">
+                            <Grid>
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Name of tag
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={6}>
+                                <TextInput
+                                  icon={<DomainAddIcon />}
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 rounded-xl px-2"
+                                  value={tag.title}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Availability
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={3}>
+                                <TextInput
+                                  icon={<ClockIcon />}
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 rounded-xl px-2"
+                                  value={tag.rules.availability[0]}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={3}>
+                                <TextInput
+                                  icon={<ClockIcon />}
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 rounded-xl px-2"
+                                  value={tag.rules.availability[1]}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Booking Amount
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={6}>
+                                <TextInput
+                                  icon={<CostIcon />}
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 rounded-xl px-2"
+                                  value={tag.rules.bookingAmount}
+                                />
+                              </Grid.Col>
+
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Min No Of Students
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={6}>
+                                <TextInput
+                                  icon={<StudentsIcon />}
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 rounded-xl px-2"
+                                  value={tag.rules.minStudents}
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Allow Early Checkout
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={6}>
+                                <Switch
+                                  checked={tag.rules.earlyCheckout}
+                                  className="mt-2"
+                                  color="dark"
+                                  // onChange={(event) =>
+                                  //   setChecked(event.currentTarget.checked)
+                                  // }
+                                />
+                              </Grid.Col>
+                              <Grid.Col span={4}>
+                                <Text className="mt-2 font-semibold">
+                                  Room Description
+                                </Text>
+                              </Grid.Col>
+                              <Grid.Col span={6}>
+                                <TextArea
+                                  variant="unstyled"
+                                  className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
+                                  value={tag.rules.roomDescription}
+                                />
+                              </Grid.Col>
+                            </Grid>
+                          </Box>
+                        );
+                      })}
+                    </Stack>
+                  );
+                })}
+              {selected?.isLevel
+                ? selected.items.map((tag) => {
+                    return (
+                      <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-fit">
+                        <Grid>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Name of tag
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<DomainAddIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={tag.title}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Availability
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={3}>
+                            <TextInput
+                              icon={<ClockIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={tag.rules.availability[0]}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={3}>
+                            <TextInput
+                              icon={<ClockIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={tag.rules.availability[1]}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Booking Amount
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<CostIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={tag.rules.bookingAmount}
+                            />
+                          </Grid.Col>
+
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Min No Of Students
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<StudentsIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={tag.rules.minStudents}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Allow Early Checkout
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <Switch
+                              checked={tag.rules.earlyCheckout}
+                              className="mt-2"
+                              color="dark"
+                              // onChange={(event) =>
+                              //   setChecked(event.currentTarget.checked)
+                              // }
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Room Description
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextArea
+                              variant="unstyled"
+                              className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
+                              value={tag.rules.roomDescription}
+                            />
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
+                    );
+                  })
+                : selected && (
+                    <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-fit">
                       <Grid>
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Name of tag</Text>
+                          <Text className="mt-2 font-semibold">
+                            Name of tag
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={6}>
                           <TextInput
                             icon={<DomainAddIcon />}
                             variant="unstyled"
-                            className="border-2 border-black rounded-xl px-2"
-                            value={tag.title}
+                            className="border-2 border-gray-400 rounded-xl px-2"
+                            value={selected?.title}
                           />
                         </Grid.Col>
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Availability</Text>
+                          <Text className="mt-2 font-semibold">
+                            Availability
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={3}>
                           <TextInput
                             icon={<ClockIcon />}
                             variant="unstyled"
-                            className="border-2 border-black rounded-xl px-2"
-                            value={tag.rules.availability[0]}
+                            className="border-2 border-gray-400 rounded-xl px-2"
+                            value={selected?.rules?.availability[0]}
                           />
                         </Grid.Col>
                         <Grid.Col span={3}>
                           <TextInput
                             icon={<ClockIcon />}
                             variant="unstyled"
-                            className="border-2 border-black rounded-xl px-2"
-                            value={tag.rules.availability[1]}
+                            className="border-2  border-gray-400 rounded-xl px-2"
+                            value={selected?.rules?.availability[1]}
                           />
                         </Grid.Col>
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Booking Amount</Text>
+                          <Text className="mt-2 font-semibold">
+                            Booking Amount
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={6}>
                           <TextInput
                             icon={<CostIcon />}
                             variant="unstyled"
-                            className="border-2 border-black rounded-xl px-2"
-                            value={tag.rules.bookingAmount}
+                            className="border-2 border-gray-400 rounded-xl px-2"
+                            value={selected?.rules?.bookingAmount}
                           />
                         </Grid.Col>
 
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Min No Of Students</Text>
+                          <Text className="mt-2 font-semibold">
+                            Min No Of Students
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={6}>
                           <TextInput
                             icon={<StudentsIcon />}
                             variant="unstyled"
-                            className="border-2 border-black rounded-xl px-2"
-                            value={tag.rules.minStudents}
+                            className="border-2 border-gray-400 rounded-xl px-2"
+                            value={selected?.rules?.minStudents}
                           />
                         </Grid.Col>
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Allow Early Checkout</Text>
+                          <Text className="mt-2 font-semibold">
+                            Allow Early Checkout
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={6}>
                           <Switch
-                            checked={tag.rules.earlyCheckout}
+                            checked={selected?.rules?.earlyCheckout}
                             className="mt-2"
                             color="dark"
                             // onChange={(event) =>
@@ -330,152 +613,26 @@ const NewCustomization = () => {
                           />
                         </Grid.Col>
                         <Grid.Col span={4}>
-                          <Text className="mt-2">Room Description</Text>
+                          <Text className="mt-2 font-semibold">
+                            Room Description
+                          </Text>
                         </Grid.Col>
                         <Grid.Col span={6}>
                           <TextArea
                             variant="unstyled"
-                            className="border-2 border-black bg-transparent rounded-xl px-2"
-                            value={tag.rules.roomDescription}
+                            className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
+                            value={selected?.rules?.roomDescription}
                           />
                         </Grid.Col>
                       </Grid>
                     </Box>
-                  );
-                })
-              : selected && (
-                  <Box className="border-black border-2 p-2 rounded-xl w-full h-fit">
-                    <Grid>
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Name of tag</Text>
-                      </Grid.Col>
-                      <Grid.Col span={6}>
-                        <TextInput
-                          icon={<DomainAddIcon />}
-                          variant="unstyled"
-                          className="border-2 border-black rounded-xl px-2"
-                          value={selected?.title}
-                        />
-                      </Grid.Col>
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Availability</Text>
-                      </Grid.Col>
-                      <Grid.Col span={3}>
-                        <TextInput
-                          icon={<ClockIcon />}
-                          variant="unstyled"
-                          className="border-2 border-black rounded-xl px-2"
-                          value={selected?.rules?.availability[0]}
-                        />
-                      </Grid.Col>
-                      <Grid.Col span={3}>
-                        <TextInput
-                          icon={<ClockIcon />}
-                          variant="unstyled"
-                          className="border-2 border-black rounded-xl px-2"
-                          value={selected?.rules?.availability[1]}
-                        />
-                      </Grid.Col>
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Booking Amount</Text>
-                      </Grid.Col>
-                      <Grid.Col span={6}>
-                        <TextInput
-                          icon={<CostIcon />}
-                          variant="unstyled"
-                          className="border-2 border-black rounded-xl px-2"
-                          value={selected?.rules?.bookingAmount}
-                        />
-                      </Grid.Col>
-
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Min No Of Students</Text>
-                      </Grid.Col>
-                      <Grid.Col span={6}>
-                        <TextInput
-                          icon={<StudentsIcon />}
-                          variant="unstyled"
-                          className="border-2 border-black rounded-xl px-2"
-                          value={selected?.rules?.minStudents}
-                        />
-                      </Grid.Col>
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Allow Early Checkout</Text>
-                      </Grid.Col>
-                      <Grid.Col span={6}>
-                        <Switch
-                          checked={selected?.rules?.earlyCheckout}
-                          className="mt-2"
-                          color="dark"
-                          // onChange={(event) =>
-                          //   setChecked(event.currentTarget.checked)
-                          // }
-                        />
-                      </Grid.Col>
-                      <Grid.Col span={4}>
-                        <Text className="mt-2">Room Description</Text>
-                      </Grid.Col>
-                      <Grid.Col span={6}>
-                        <TextArea
-                          variant="unstyled"
-                          className="border-2 border-black bg-transparent rounded-xl px-2"
-                          value={selected?.rules?.roomDescription}
-                        />
-                      </Grid.Col>
-                    </Grid>
-                  </Box>
-                )}
-          </Stack>
-        </Box>
+                  )}
+            </Stack>
+          </Box>
+        </Group>
       </Grid.Col>
     </Grid>
   );
 };
 
 export default NewCustomization;
-
-// {
-//     icon: <LocalLibraryOutlinedIcon />,
-//     title: "SOE",
-//     items: [
-//       {
-//         title: "Level 1",
-//         ml: 4,
-//         items: [
-//           {
-//             title: "GSRs",
-
-//             ml: 8,
-//             text: "sm",
-//           },
-//           {
-//             title: "Study Rooms",
-
-//             ml: 8,
-//             text: "sm",
-//           },
-
-//         ],
-//       },
-//       {
-//         title: "Level 2",
-//         ml: 4,
-//         items: [
-//           {
-//             title: "GSRs",
-
-//             ml: 8,
-//             text: "sm",
-//           },
-//           {
-//             title: "Study Rooms",
-
-//             ml: 8,
-//             text: "sm",
-//           },
-
-//         ],
-//       },
-
-//     ],
-//   },

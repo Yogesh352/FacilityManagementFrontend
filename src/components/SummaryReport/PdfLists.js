@@ -80,14 +80,14 @@ const PdfLists = ({ values }) => {
         </a>
       </td>
       <td className="w-[10%] flex items-center">
-         <a
+        <a
           href={excel}
           target="_blank"
           rel="noreferrer"
           className="py-2 font-semibold px-2"
           download="Report.xlsx"
         >
-          <ExcelIcon size='17'/>
+          <ExcelIcon size="17" />
         </a>
         <a
           href={pdf}
@@ -96,9 +96,8 @@ const PdfLists = ({ values }) => {
           className="py-2 font-semibold "
           download="Report.pdf"
         >
-          <PdfIcon size='17' />
+          <PdfIcon size="17" />
         </a>
-        
       </td>
     </tr>
   ));
@@ -108,9 +107,9 @@ const PdfLists = ({ values }) => {
   const [scrolled, setScrolled] = useState(false);
 
   return (
-    <Box className="overflow-scroll scrollbar-hide w-full h-[95%]">
+    <Box className="overflow-scroll scrollbar-hide w-full h-full">
       <ScrollArea
-        h={300}
+        h={360}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
         <Table className="border-2  w-full border-gray-300 rounded-lg h-[95%]">
