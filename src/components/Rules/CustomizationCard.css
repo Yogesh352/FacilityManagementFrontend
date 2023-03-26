@@ -1,0 +1,87 @@
+.container {
+    border-style: solid;
+    border-color: #9dbfd8;
+    border-width: 2px;
+    display: flex;
+    /* justify-content: flex-end; */
+    flex-direction: column;
+    border-radius: 15px;
+    padding-right: 20px;
+    margin-right: 20px;
+    /* margin-left: 50px;
+    margin-right: 50px; */
+    width: 500px;
+    margin-bottom: 15px;
+    /* min-width: 500px; */
+}
+
+.duplicatebutton {
+    justify-content: flex-end;
+    align-self: flex-end;
+}
+.inputcontainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    /* flex-wrap: wrap;
+    justify-content: space-between; */
+}
+
+.titlename1 {
+    margin-left: 10px;
+    padding-right: 104px;
+}
+.titlename2 {
+    margin-left: 10px;
+    padding-right: 116px;
+}
+.titlename3 {
+    margin-left: 10px;
+    padding-right: 77px;
+}
+
+.titlename4 {
+    margin-left: 10px;
+    padding-right: 15px;
+}
+.titlename5 {
+    margin-left: 10px;
+    padding-right: 93px;
+}
+.titlename6 {
+    margin-left: 10px;
+    padding-right: 75px;
+}
+
+.inputrow {
+    display: flex;
+    align-items: center;
+    padding-bottom: 20px;
+}
+.titlesmall {
+    width: 100px;
+}
+.titlelarge {
+    width: 250px;
+}
+
+.duplicatecontainer {
+    display: flex;
+    justify-content: flex-end;
+}
+/* p{
+    font-size: 15px;
+} */
+.field {
+    border-style: solid;
+    border-color: #9dbfd8;
+    border-width: 1px;
+    border-radius: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.fieldtext {
+    color: darkgray;
+}
