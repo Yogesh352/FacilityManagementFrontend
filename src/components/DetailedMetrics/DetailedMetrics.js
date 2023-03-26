@@ -6,6 +6,7 @@ import {
   Select,
   Stack,
   Text,
+  Title,
 } from "@mantine/core";
 import React, { useEffect, useState } from "react";
 import { data } from "../Dashboard/BuildingData";
@@ -27,10 +28,10 @@ const DetailedMetricsCharts = () => {
 
   const [buildings, setBuildings] = useState(["SOB"]);
   return (
-    <Box className="bg-white w-full h-[90%] p-5 rounded-lg">
+    <Box className="bg-white w-full h-[100%] p-4 rounded-lg">
       <Stack className="h-full">
         <Group position="apart">
-          <Text className="font-bold text-3xl">DetailedMetrics</Text>
+          <Title order={2}>Detailed Metrics</Title>
           <MultiSelect
             data={data}
             value={buildings}

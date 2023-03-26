@@ -45,7 +45,7 @@ energyConsumptionDataD.set("SCIS1", {
     borderColor: "#8EDCE6",
     backgroundColor: "#8EDCE6",
     lineTension: 0.5,
-   
+
     // look at this setting
     fill: "origin",
   },
@@ -78,7 +78,7 @@ energyConsumptionDataD.set("LKS", {
 
     backgroundColor: "#D5DCF9",
     lineTension: 0.5,
-   
+
     // look at this setting
     fill: "origin",
   },
@@ -111,7 +111,7 @@ energyConsumptionDataD.set("SOA", {
     borderColor: "#A7B0CA",
     backgroundColor: "#A7B0CA",
     lineTension: 0.5,
-   
+
     // look at this setting
     fill: "origin",
   },
@@ -143,7 +143,7 @@ energyConsumptionDataD.set("SOE", {
     borderColor: "#443627",
     backgroundColor: "#443627",
     lineTension: 0.5,
-   
+
     // look at this setting
     fill: "origin",
   },
@@ -157,3 +157,35 @@ energyConsumptionDataD.set("SOE", {
     fill: "origin",
   },
 });
+
+energyConsumptionDataD.set("SOSS", {
+  consumption: {
+    label: "SOSS",
+    lineTension: 0.5,
+    data: [0.96, 6.06, 15.46, 5.46, 9.55, 4.52, 1.24, 9.1],
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    fill: "origin",
+  },
+  cost: {
+    label: "SOSS",
+    data: [100, 110, 115.12, 123.46, 121.55, 40.52, 100.24, 90.1],
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    lineTension: 0.5,
+
+    // look at this setting
+    fill: "origin",
+  },
+  occupancy: {
+    label: "SOSS",
+    data: [54, 64, 15.46, 25.46, 49.55, 64.52, 21.24, 59.1],
+    borderColor: "#D4AFCD",
+    backgroundColor: "#D4AFCD",
+    lineTension: 0.5,
+    // look at this setting
+    fill: "origin",
+  },
+});
+
+
