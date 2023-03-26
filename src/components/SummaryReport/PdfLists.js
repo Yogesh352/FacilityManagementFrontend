@@ -98,7 +98,7 @@ const PdfLists = ({ values }) => {
   return (
     <Box className="overflow-scroll scrollbar-hide w-full h-[95%]">
       <ScrollArea
-        h={300}
+        h={350}
         onScrollPositionChange={({ y }) => setScrolled(y !== 0)}
       >
         <Table className="border-2  w-full border-gray-300 rounded-lg h-[95%]">
