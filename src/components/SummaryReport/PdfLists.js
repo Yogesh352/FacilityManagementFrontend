@@ -85,7 +85,7 @@ const PdfLists = ({ values }) => {
           target="_blank"
           rel="noreferrer"
           className="py-2 font-semibold px-2"
-          download
+          download="Report.xlsx"
         >
           <ExcelIcon size='17'/>
         </a>
@@ -94,7 +94,7 @@ const PdfLists = ({ values }) => {
           target="_blank"
           rel="noreferrer"
           className="py-2 font-semibold "
-          download
+          download="Report.pdf"
         >
           <PdfIcon size='17' />
         </a>
