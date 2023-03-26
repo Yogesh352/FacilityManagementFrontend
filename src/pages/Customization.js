@@ -30,190 +30,191 @@ import SectionUnlocking from "../components/Rules/SectionUnlocking";
 var tagView = true;
 var buildingView = false;
 
-const CustomContentBuilding = React.forwardRef(function CustomContent(
-    props,
-    ref
-) {
-    const {
-        classes,
-        className,
-        label,
-        nodeId,
-        icon: iconProp,
-        expansionIcon,
-        displayIcon,
-    } = props;
+const CustomContentBuilding = React.forwardRef(
+    function CustomContent(props, ref) {
+        const {
+            classes,
+            className,
+            label,
+            nodeId,
+            icon: iconProp,
+            expansionIcon,
+            displayIcon,
+        } = props;
 
-    const {
-        disabled,
-        expanded,
-        selected,
-        focused,
-        handleExpansion,
-        handleSelection,
-        preventSelection,
-    } = useTreeItem(nodeId);
+        const {
+            disabled,
+            expanded,
+            selected,
+            focused,
+            handleExpansion,
+            handleSelection,
+            preventSelection,
+        } = useTreeItem(nodeId);
 
-    const icon = iconProp || expansionIcon || displayIcon;
+        const icon = iconProp || expansionIcon || displayIcon;
 
-    const handleMouseDown = (event) => {
-        preventSelection(event);
-    };
+        const handleMouseDown = (event) => {
+            preventSelection(event);
+        };
 
-    const handleExpansionClick = (event) => {
-        handleExpansion(event);
-    };
+        const handleExpansionClick = (event) => {
+            handleExpansion(event);
+        };
 
-    const handleBuildingSelectionClick = (event) => {
-        alert("building clicked");
-        handleSelection(event);
-    };
+        const handleBuildingSelectionClick = (event) => {
+            alert("building clicked");
+            handleSelection(event);
+        };
 
-    const handleAddSectionClick = (event) => {
-        alert("add section button clicked");
-    };
+        const handleAddSectionClick = (event) => {
+            alert("add section button clicked");
+        };
 
-    return (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div
-            className={clsx(className, classes.root, {
-                [classes.expanded]: expanded,
-                [classes.selected]: selected,
-                [classes.focused]: focused,
-                [classes.disabled]: disabled,
-            })}
-            onMouseDown={handleMouseDown}
-            ref={ref}
-        >
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-                onClick={handleExpansionClick}
-                className={classes.iconContainer}
+                className={clsx(className, classes.root, {
+                    [classes.expanded]: expanded,
+                    [classes.selected]: selected,
+                    [classes.focused]: focused,
+                    [classes.disabled]: disabled,
+                })}
+                onMouseDown={handleMouseDown}
+                ref={ref}
             >
-                {icon}
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                    onClick={handleExpansionClick}
+                    className={classes.iconContainer}
+                >
+                    {icon}
+                </div>
+                <Typography
+                    onClick={handleBuildingSelectionClick}
+                    component="div"
+                    className={classes.label}
+                    style={{ fontWeight: "bolder", fontSize: "20px" }}
+                >
+                    {label}
+                </Typography>
+                <Button
+                    style={{
+                        // "margin-right": "100px",
+                        textTransform: "none",
+                        borderColor: "red",
+                        width: "200px",
+                        backgroundColor: "#9DBFD8",
+                        borderRadius: "50px",
+                        color: "white",
+                        height: "20px",
+                    }}
+                    onClick={() => {
+                        handleAddSectionClick();
+                    }}
+                >
+                    + Add section
+                </Button>
             </div>
-            <Typography
-                onClick={handleBuildingSelectionClick}
-                component="div"
-                className={classes.label}
-                style={{ fontWeight: "bolder", fontSize: "20px" }}
-            >
-                {label}
-            </Typography>
-            <Button
-                style={{
-                    // "margin-right": "100px",
-                    textTransform: "none",
-                    borderColor: "red",
-                    width: "200px",
-                    backgroundColor: "#9DBFD8",
-                    borderRadius: "50px",
-                    color: "white",
-                    height: "20px",
-                }}
-                onClick={() => {
-                    handleAddSectionClick();
-                }}
-            >
-                + Add section
-            </Button>
-        </div>
-    );
-});
+        );
+    }
+);
 
-const CustomContentSection = React.forwardRef(function CustomContent(
-    props,
-    ref
-) {
-    const {
-        classes,
-        className,
-        label,
-        nodeId,
-        icon: iconProp,
-        expansionIcon,
-        displayIcon,
-    } = props;
+const CustomContentSection = React.forwardRef(
+    function CustomContent(props, ref) {
+        const {
+            classes,
+            className,
+            label,
+            nodeId,
+            icon: iconProp,
+            expansionIcon,
+            displayIcon,
+        } = props;
 
-    const {
-        disabled,
-        expanded,
-        selected,
-        focused,
-        handleExpansion,
-        preventSelection,
-    } = useTreeItem(nodeId);
+        const {
+            disabled,
+            expanded,
+            selected,
+            focused,
+            handleExpansion,
+            preventSelection,
+        } = useTreeItem(nodeId);
 
-    const icon = iconProp || expansionIcon || displayIcon;
-    const [, setUseState] = React.useState("");
+        const icon = iconProp || expansionIcon || displayIcon;
+        const [, setUseState] = React.useState("");
 
-    const handleMouseDown = (event) => {
-        preventSelection(event);
-    };
+        const handleMouseDown = (event) => {
+            preventSelection(event);
+        };
 
-    const handleExpansionClick = (event) => {
-        handleExpansion(event);
-    };
+        const handleExpansionClick = (event) => {
+            handleExpansion(event);
+        };
 
-    const handleSectionSelectionClick = (event) => {
-        alert("section clicked");
-        // // handleSelection(event);
-        // tagView = true;
-        // // this.setState({});
-        // setUseState();
-        // // this.forceUpdate();
-        // console.log(tagView);
-    };
-    const handleAddTagClick = (event) => {
-        // openTagModal
-        alert("add tag clicked");
-    };
+        const handleSectionSelectionClick = (event) => {
+            alert("section clicked");
+            // // handleSelection(event);
+            // tagView = true;
+            // // this.setState({});
+            // setUseState();
+            // // this.forceUpdate();
+            // console.log(tagView);
+        };
+        
+        const [showTags, setShowTags] = React.useState(false);
+        const handleAddTagClick = (event) => {
+            if (showTags){
+                setShowTags(false);
+            }else{
+                setShowTags(true);
+            }
+            // alert("add tag clicked");
+        };
 
-    return (
-        // eslint-disable-next-line jsx-a11y/no-static-element-interactions
-        <div
-            className={clsx(className, classes.root, {
-                [classes.expanded]: expanded,
-                [classes.selected]: selected,
-                [classes.focused]: focused,
-                [classes.disabled]: disabled,
-            })}
-            onMouseDown={handleMouseDown}
-            ref={ref}
-        >
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+        return (
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <div
-                onClick={handleExpansionClick}
-                className={classes.iconContainer}
+                className={clsx(className, classes.root, {
+                    [classes.expanded]: expanded,
+                    [classes.selected]: selected,
+                    [classes.focused]: focused,
+                    [classes.disabled]: disabled,
+                })}
+                onMouseDown={handleMouseDown}
+                ref={ref}
             >
-                {icon}
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                <div
+                    onClick={handleExpansionClick}
+                    className={classes.iconContainer}
+                >
+                    {icon}
+                </div>
+                <Typography
+                    onClick={handleSectionSelectionClick}
+                    component="div"
+                    className={classes.label}
+                >
+                    {label}
+                </Typography>
+                <Button
+                    style={{
+                        // "margin-right": "100px",
+                        textTransform: "none",
+                        borderColor: "red",
+                        width: "130px",
+                        backgroundColor: "#9DBFD8",
+                        borderRadius: "50px",
+                        color: "white",
+                        height: "20px",
+                    }}
+                    onClick={handleAddTagClick}
+                >
+                    + Add Tag
+                </Button>
             </div>
-            <Typography
-                onClick={handleSectionSelectionClick}
-                component="div"
-                className={classes.label}
-            >
-                {label}
-            </Typography>
-            <Button
-                style={{
-                    // "margin-right": "100px",
-                    textTransform: "none",
-                    borderColor: "red",
-                    width: "130px",
-                    backgroundColor: "#9DBFD8",
-                    borderRadius: "50px",
-                    color: "white",
-                    height: "20px",
-                }}
-                onClick={() => {
-                    handleAddTagClick();
-                }}
-            >
-                + Add Tag
-            </Button>
-        </div>
-    );
+        );
 });
 
 const CustomContentTag = React.forwardRef(function CustomContent(props, ref) {
@@ -383,6 +384,7 @@ function CustomTreeItemBuilding({nameOfBuilding, nameOfSections}, props) {
         </TreeView>
     );
 }
+
 function CustomTreeItemSection({section, nameOfSections}, props) {
     return(
         <TreeItem nodeId={section} label={section} ContentComponent={CustomContentSection} {...props}>
@@ -394,7 +396,7 @@ function CustomTreeItemSection({section, nameOfSections}, props) {
 }
 
 function CustomTreeItemTag({tag}, props) {
-    return <TreeItem nodeId={tag} label={tag} ContentComponent={CustomContentTag} {...props}></TreeItem>
+    return <TreeItem nodeId={tag["TagName"]} label={tag["TagName"]} ContentComponent={CustomContentTag} {...props}></TreeItem>
 }
 
 export default function Customization() {
@@ -452,14 +454,48 @@ export default function Customization() {
     // ***********Everything Building Related Start***********
     const [buildingArray, setBuildingArray] = React.useState({
         "SOE": {
-            "Level 1": [],
-            "Level 2": [],
-            "Level 3": []
+            "Level 1": [
+                {
+                    "TagName": "GSRs",
+                },
+                {
+                    "TagName": "Study Rooms",
+                }
+            ],
+            "Level 2": [
+                {
+                    "TagName": "SRs",
+                },
+                {
+                    "TagName": "Study Rooms",
+                }
+            ],
+            "Level 3": [
+                {
+                    "TagName": "SRs",
+                },
+                {
+                    "TagName": "Classrooms",
+                }
+            ]
         },
         "SCIS": {
-            "Level 1": [],
-            "Level 2": [],
-            "Level 3": []
+            "Level 1": [
+                {
+                    "TagName": "GSRs",
+                },
+                {
+                    "TagName": "Study Rooms",
+                }
+            ],
+            "Level 2": [
+                {
+                    "TagName": "SRs",
+                },
+                {
+                    "TagName": "Study Rooms",
+                }
+            ]
         }   
     });
     const [buildingName, setBuildingName] = React.useState("");
