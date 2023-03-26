@@ -15,7 +15,7 @@ export const facilities = [
         isLevel: true,
         ml: 4,
         rules: {
-          availability: ["1200", "1700"],
+          availability: ["0900", "1700"],
           bookingAmount: 50,
           minStudents: 3,
           earlyCheckout: true,
@@ -27,8 +27,8 @@ export const facilities = [
             ml: 8,
             text: "sm",
             rules: {
-              availability: ["1200", "1700"],
-              bookingAmount: 50,
+              availability: ["1230", "1700"],
+              bookingAmount: 12,
               minStudents: 3,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
@@ -40,8 +40,8 @@ export const facilities = [
             text: "sm",
             rules: {
               availability: ["1200", "1700"],
-              bookingAmount: 50,
-              minStudents: 3,
+              bookingAmount: 12,
+              minStudents: 2,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
             },
@@ -54,32 +54,32 @@ export const facilities = [
         ml: 4,
         rules: {
           availability: ["1200", "1700"],
-          bookingAmount: 50,
-          minStudents: 3,
+          bookingAmount: 100,
+          minStudents: 2,
           earlyCheckout: true,
           roomDescription: "This room is very nice",
         },
         items: [
           {
-            title: "GSRs",
+            title: "SRs",
             ml: 8,
             text: "sm",
             rules: {
-              availability: ["1200", "1700"],
+              availability: ["1200", "1300"],
               bookingAmount: 50,
-              minStudents: 3,
-              earlyCheckout: true,
+              minStudents: 2,
+              earlyCheckout: false,
               roomDescription: "This room is very nice",
             },
           },
           {
-            title: "Study Rooms",
+            title: "Study Pods",
             ml: 8,
             text: "sm",
             rules: {
-              availability: ["1200", "1700"],
+              availability: ["1200", "1800"],
               bookingAmount: 50,
-              minStudents: 3,
+              minStudents: 4,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
             },
@@ -98,21 +98,21 @@ export const facilities = [
         isLevel: true,
         ml: 4,
         rules: {
-          availability: ["1200", "1700"],
-          bookingAmount: 50,
+          availability: ["1100", "1700"],
+          bookingAmount: 10,
           minStudents: 3,
           earlyCheckout: true,
           roomDescription: "This room is very nice",
         },
         items: [
           {
-            title: "GSRs",
+            title: "Meeting Rooms",
 
             ml: 8,
             text: "sm",
             rules: {
-              availability: ["1200", "1700"],
-              bookingAmount: 50,
+              availability: ["1200", "1900"],
+              bookingAmount: 20,
               minStudents: 3,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
@@ -125,7 +125,7 @@ export const facilities = [
             text: "sm",
             rules: {
               availability: ["1200", "1700"],
-              bookingAmount: 50,
+              bookingAmount: 10,
               minStudents: 3,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
@@ -139,33 +139,33 @@ export const facilities = [
         ml: 4,
         rules: {
           availability: ["1200", "1700"],
-          bookingAmount: 50,
+          bookingAmount: 20,
           minStudents: 3,
           earlyCheckout: true,
           roomDescription: "This room is very nice",
         },
         items: [
           {
-            title: "GSRs",
+            title: "GSR",
 
             ml: 8,
             text: "sm",
             rules: {
               availability: ["1200", "1700"],
-              bookingAmount: 50,
+              bookingAmount: 30,
               minStudents: 3,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
             },
           },
           {
-            title: "Study Rooms",
+            title: "Study Corner",
 
             ml: 8,
             text: "sm",
             rules: {
               availability: ["1200", "1700"],
-              bookingAmount: 50,
+              bookingAmount: 80,
               minStudents: 3,
               earlyCheckout: true,
               roomDescription: "This room is very nice",
