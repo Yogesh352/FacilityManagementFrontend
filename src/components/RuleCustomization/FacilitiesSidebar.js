@@ -99,7 +99,7 @@ const SingleLevel = ({
         <ListItemText
           className={`ml-${item?.ml}`}
           primary={
-            <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
+            <Typography variant={`${item?.text === "sm" ? "body2" : "body1"}`}>
               {item.title}
             </Typography>
           }
