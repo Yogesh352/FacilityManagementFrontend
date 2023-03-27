@@ -84,6 +84,14 @@ const NewCustomization = () => {
         title: buildingInfo.sectionNames[i],
         isLevel: true,
         ml: 4,
+        rules: {
+          availability: [],
+          bookingAmount: 0,
+          minStudents: 0,
+          earlyCheckout: false,
+          roomDescription: "",
+        },
+        items: [],
       };
     }
     setNewBuilding(oldArray);
@@ -221,12 +229,20 @@ const NewCustomization = () => {
             <Text className="mt-2 font-semibold">Booking Amount</Text>
           </Grid.Col>
           <Grid.Col span={6}>
-            <NumberInput
+            <TextInput
               icon={<CostIcon />}
               variant="unstyled"
               className="border-2 border-gray-400 rounded-xl px-2"
               value={newBookingAmount}
-              onChange={setBookingAmount}
+              onChange={(e) => {
+                setBookingAmount();
+                let oldRules = newTag.rules;
+                oldRules.bookingAmount = parseInt(e.target.value);
+                setNewTag({
+                  ...newTag,
+                  rules: oldRules,
+                });
+              }}
               //   value={tag.rules.bookingAmount}
             />
           </Grid.Col>
@@ -235,13 +251,21 @@ const NewCustomization = () => {
             <Text className="mt-2 font-semibold">Min No Of Students</Text>
           </Grid.Col>
           <Grid.Col span={6}>
-            <NumberInput
+            <TextInput
               icon={<StudentsIcon />}
               variant="unstyled"
               className="border-2 border-gray-400 rounded-xl px-2"
               //   value={tag.rules.minStudents}
               value={minStudents}
-              onChange={setMinStudents}
+              onChange={(e) => {
+                setMinStudents();
+                let oldRules = newTag.rules;
+                oldRules.minStudents = parseInt(e.target.value);
+                setNewTag({
+                  ...newTag,
+                  rules: oldRules,
+                });
+              }}
             />
           </Grid.Col>
           <Grid.Col span={4}>
@@ -254,7 +278,12 @@ const NewCustomization = () => {
               color="dark"
               value={newTag.earlyCheckout}
               onChange={(e) => {
-                setNewTag({ ...newTag, earlyCheckout: e.target.checked });
+                let oldRules = newTag.rules;
+                oldRules.checked = e.target.checked;
+                setNewTag({
+                  ...newTag,
+                  rules: oldRules,
+                });
               }}
             />
           </Grid.Col>
@@ -262,12 +291,17 @@ const NewCustomization = () => {
             <Text className="mt-2 font-semibold">Room Description</Text>
           </Grid.Col>
           <Grid.Col span={6}>
-            <TextArea
+            <TextInput
               variant="unstyled"
               className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
               value={newTag.roomDescription}
               onChange={(e) => {
-                setNewTag({ ...newTag, roomDescription: e.target.value });
+                let oldRules = newTag.rules;
+                oldRules.roomDescription = e.target.value;
+                setNewTag({
+                  ...newTag,
+                  rules: oldRules,
+                });
               }}
             />
           </Grid.Col>
@@ -279,10 +313,20 @@ const NewCustomization = () => {
                 console.log(newTag);
                 setOpenTagModal(false);
                 levelAddingTo?.items?.push(newTag);
+                setNewTagCounter({
+                  title: "",
+                  ml: 8,
+                  text: "sm",
+                  rules: {
+                    availability: [],
+                    bookingAmount: 0,
+                    minStudents: 0,
+                    earlyCheckout: false,
+                    roomDescription: "",
+                  },
+                });
               }}
-              onSubmit={() => {
-               
-              }}
+              onSubmit={() => {}}
             >
               Save
             </Button>
@@ -315,7 +359,7 @@ const NewCustomization = () => {
 
           <Box className=" h-[85vh]  overflow-scroll scrollbar border-2 border-gray-400 border-l-0 rounded-tr-xl rounded-br-xl overflow-x-hidden scrollbar-thumb-gray-300 scrollbar-track-gray-100 w-[65%] p-4  pb-30 bg-slightlydarker">
             <Stack className="h-full w-full ">
-              {selected?.isBuilding &&
+              {selected?.isBuilding ? (
                 selected.items.map((level) => {
                   return (
                     <Stack>
@@ -429,18 +473,44 @@ const NewCustomization = () => {
                                   value={tag.rules.roomDescription}
                                 />
                               </Grid.Col>
+                              <Grid.Col span={12}>
+                                <Group position="right">
+                                  <Button
+                                    variant="filled"
+                                    className="bg-black text-white"
+                                  >
+                                    Save
+                                  </Button>
+                                </Group>
+                              </Grid.Col>
                             </Grid>
                           </Box>
                         );
                       })}
                     </Stack>
                   );
-                })}
-              {selected?.isLevel
-                ? selected.items.map((tag) => {
+                })
+              ) : selected?.isLevel ? (
+                <>
+                  <Group className="w-full" position="apart">
+                    <Text className="font-bold text-lg">
+                      {selected?.title + ""}
+                    </Text>
+                    <Button
+                      leftIcon={<PlusIcon />}
+                      size="xs"
+                      className="text-black border-black"
+                      variant="outline"
+                      onClick={async () => {}}
+                    >
+                      Add New Tag
+                    </Button>
+                  </Group>
+                  {selected.items.map((tag) => {
                     return (
                       <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-fit">
                         <Grid>
+                          <Grid.Col span={12}></Grid.Col>
                           <Grid.Col span={4}>
                             <Text className="mt-2 font-semibold">
                               Name of tag
@@ -529,104 +599,145 @@ const NewCustomization = () => {
                               value={tag.rules.roomDescription}
                             />
                           </Grid.Col>
+                          <Grid.Col span={12}>
+                            <Group position="right">
+                              <Button
+                                variant="filled"
+                                className="bg-black text-white"
+                              >
+                                Save
+                              </Button>
+                            </Group>
+                          </Grid.Col>
                         </Grid>
                       </Box>
                     );
-                  })
-                : selected && (
-                    <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-fit">
-                      <Grid>
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Name of tag
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                          <TextInput
-                            icon={<DomainAddIcon />}
-                            variant="unstyled"
-                            className="border-2 border-gray-400 rounded-xl px-2"
-                            value={selected?.title}
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Availability
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                          <TextInput
-                            icon={<ClockIcon />}
-                            variant="unstyled"
-                            className="border-2 border-gray-400 rounded-xl px-2"
-                            value={selected?.rules?.availability[0]}
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={3}>
-                          <TextInput
-                            icon={<ClockIcon />}
-                            variant="unstyled"
-                            className="border-2  border-gray-400 rounded-xl px-2"
-                            value={selected?.rules?.availability[1]}
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Booking Amount
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                          <TextInput
-                            icon={<CostIcon />}
-                            variant="unstyled"
-                            className="border-2 border-gray-400 rounded-xl px-2"
-                            value={selected?.rules?.bookingAmount}
-                          />
-                        </Grid.Col>
+                  })}
+                </>
+              ) : (
+                selected && (
+                  <>
+                    <Group className="w-full" position="apart">
+                      <Text className="font-bold text-lg">
+                        {selected?.title}
+                      </Text>
+                      <Button
+                        leftIcon={<PlusIcon />}
+                        size="xs"
+                        className="text-black border-black"
+                        variant="outline"
+                        onClick={async () => {}}
+                      >
+                        Add New Tag
+                      </Button>
+                    </Group>
+                    {selected && (
+                      <Box className="border-gray-400 border-2 p-2 rounded-xl w-full h-fit">
+                        <Grid>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Name of tag
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<DomainAddIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={selected?.title}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Availability
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={3}>
+                            <TextInput
+                              icon={<ClockIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={selected?.rules?.availability[0]}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={3}>
+                            <TextInput
+                              icon={<ClockIcon />}
+                              variant="unstyled"
+                              className="border-2  border-gray-400 rounded-xl px-2"
+                              value={selected?.rules?.availability[1]}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Booking Amount
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<CostIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={selected?.rules?.bookingAmount}
+                            />
+                          </Grid.Col>
 
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Min No Of Students
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                          <TextInput
-                            icon={<StudentsIcon />}
-                            variant="unstyled"
-                            className="border-2 border-gray-400 rounded-xl px-2"
-                            value={selected?.rules?.minStudents}
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Allow Early Checkout
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                          <Switch
-                            checked={selected?.rules?.earlyCheckout}
-                            className="mt-2"
-                            color="dark"
-                            // onChange={(event) =>
-                            //   setChecked(event.currentTarget.checked)
-                            // }
-                          />
-                        </Grid.Col>
-                        <Grid.Col span={4}>
-                          <Text className="mt-2 font-semibold">
-                            Room Description
-                          </Text>
-                        </Grid.Col>
-                        <Grid.Col span={6}>
-                          <TextArea
-                            variant="unstyled"
-                            className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
-                            value={selected?.rules?.roomDescription}
-                          />
-                        </Grid.Col>
-                      </Grid>
-                    </Box>
-                  )}
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Min No Of Students
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextInput
+                              icon={<StudentsIcon />}
+                              variant="unstyled"
+                              className="border-2 border-gray-400 rounded-xl px-2"
+                              value={selected?.rules?.minStudents}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Allow Early Checkout
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <Switch
+                              checked={selected?.rules?.earlyCheckout}
+                              className="mt-2"
+                              color="dark"
+                              // onChange={(event) =>
+                              //   setChecked(event.currentTarget.checked)
+                              // }
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={4}>
+                            <Text className="mt-2 font-semibold">
+                              Room Description
+                            </Text>
+                          </Grid.Col>
+                          <Grid.Col span={6}>
+                            <TextArea
+                              variant="unstyled"
+                              className="border-2 border-gray-400 bg-transparent rounded-xl px-2"
+                              value={selected?.rules?.roomDescription}
+                            />
+                          </Grid.Col>
+                          <Grid.Col span={12}>
+                            <Group position="right">
+                              <Button
+                                variant="filled"
+                                className="bg-black text-white"
+                              >
+                                Save
+                              </Button>
+                            </Group>
+                          </Grid.Col>
+                        </Grid>
+                      </Box>
+                    )}
+                  </>
+                )
+              )}
             </Stack>
           </Box>
         </Group>
