@@ -97,7 +97,7 @@ const SingleLevel = ({
       <ListItem button>
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText
-          className={margin}
+          className={`ml-${item?.ml}`}
           primary={
             <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
               {item.title}
@@ -107,6 +107,7 @@ const SingleLevel = ({
             setClicked(item);
           }}
         />
+        {console.log(item?.ml)}
         {item.isLevel && (
           <Button
             leftIcon={<PlusIcon />}
@@ -236,14 +237,21 @@ const MultiLevel = ({
       <Group>
         <ListItem button className="w-[1/2]">
           {open ? (
-            <ExpandIcon onClick={handleClick} className={`${margin} mr-5`} />
+            <ExpandIcon
+              onClick={handleClick}
+              className={`ml-${item?.ml} mr-5`}
+            />
           ) : (
-            <RightIcon onClick={handleClick} className={`${margin} mr-5`} />
+            <RightIcon
+              onClick={handleClick}
+              className={`ml-${item?.ml} mr-5`}
+            />
           )}
+          {console.log(item?.ml)}
           {/* <ListItemIcon>{item.icon}</ListItemIcon> */}
 
           <ListItemText
-            className={margin}
+            className={`ml-4`}
             onClick={() => setClicked(item)}
             primary={
               <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
@@ -285,9 +293,9 @@ const MultiLevel = ({
         <List component="div" disablePadding>
           {children.map((child, key) => (
             <MenuItem
-              className={`ml-${item.ml}`}
               key={key}
               item={child}
+              margin={child.ml}
               selected={selected}
               setSelected={setSelected}
               clicked={clicked}

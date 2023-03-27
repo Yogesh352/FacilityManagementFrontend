@@ -28,10 +28,10 @@ function App() {
           <Route path="/forecast" element={<Forecast />} />
 
           <Route path="/advancedmetrics" element={<AdvancedMetrics />} />
-          <Route path="/facilities-customization" element={<Customization />} />
+          <Route path="/facilities-customization" element={<NewCustomization />} />
           <Route
             path="/facilities-customization2"
-            element={<NewCustomization />}
+            element={<Customization />}
           />
           {/* <Route path="/customization" element={<C />} /> */}
 
