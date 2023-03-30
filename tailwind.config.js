@@ -4,9 +4,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        customblue: "#94C0DB",
-        lighterblue: "#d4e6f1",
-        slightlydarker: "#bfd9e9",
+        customblue: "#94c0db",
+        lighterblue:  "#ecf4f9",
+        slightlydarker: "#d4e6f1",
+        rulessidebar: "#9DBFD8"
       },
     },
   },
