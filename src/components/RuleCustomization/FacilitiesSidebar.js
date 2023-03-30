@@ -9,18 +9,33 @@ import MeetingRoomIcon from "@mui/icons-material/MeetingRoom";
 
 import { hasChildren } from "./utils";
 import { Typography } from "@mui/material";
-import { Button, Group, Modal, TextInput } from "@mantine/core";
+import { Box, Button, Group, Modal, TextInput } from "@mantine/core";
 import { ExpandIcon, PlusIcon, RightIcon } from "../Icon";
+import { facilities } from "./Facilities";
 
 export default function FacilitiesSidebar({
   facilities,
   selected,
   setSelected,
+  priorityUpdate,
+  setPriorityUpdate,
 }) {
   const [clicked, setClicked] = useState();
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
-    setSelected(clicked);
+    if (clicked != null) {
+      setSelected(clicked);
+    }
   }, [clicked, selected]);
+  useEffect(() => {
+    console.log("Hello");
+  }, [counter]);
+
+  useEffect(() => {
+    console.log("SidebarUpdatePriority");
+    console.log(priorityUpdate);
+  }, [priorityUpdate]);
   return facilities.map((item, key) => (
     <MenuItem
       key={key}
@@ -29,19 +44,36 @@ export default function FacilitiesSidebar({
       setSelected={setSelected}
       clicked={clicked}
       setClicked={setClicked}
+      counter={counter}
+      setCounter={setCounter}
+      priorityUpdate={priorityUpdate}
+      setPriorityUpdate={setPriorityUpdate}
     />
   ));
 }
 
-const MenuItem = ({ item, selected, setSelected, clicked, setClicked }) => {
+const MenuItem = ({
+  counter,
+  setCounter,
+  item,
+  selected,
+  setSelected,
+  clicked,
+
+  setClicked,
+  facilities,
+}) => {
   const Component = hasChildren(item) ? MultiLevel : SingleLevel;
   return (
     <Component
+      counter={counter}
+      setCounter={setCounter}
       item={item}
       selected={selected}
       setSelected={setSelected}
       clicked={clicked}
       setClicked={setClicked}
+      facilities={facilities}
     />
   );
 };
@@ -53,11 +85,14 @@ const SingleLevel = ({
   setSelected,
   clicked,
   setClicked,
+  facilities,
+  counter,
+  setCounter,
 }) => {
   const [openTagModal, setopenTagModal] = useState(false);
   const [chosenLevel, setChosenLevel] = useState();
   const [newTag, setNewTag] = useState();
-  const margin = `ml-${item.ml}`;
+
   return (
     <>
       <Modal
@@ -84,23 +119,45 @@ const SingleLevel = ({
                 title: newTag,
                 ml: 8,
                 text: "sm",
+                rules: {
+                  availability: ["0900", "1700"],
+                  bookingAmount: 50,
+                  minStudents: 3,
+                  earlyCheckout: true,
+                  roomDescription:
+                    "Lights automatic control and aircon is manual",
+                },
               });
+              setCounter(counter + 1);
               setopenTagModal(false);
             }}
-            className="border-black text-black"
+            className="border-black  text-black"
             variant="outline"
           >
-            submit
+            Submit
           </Button>
         </Group>
       </Modal>
       <ListItem button>
         <ListItemIcon>{item.icon}</ListItemIcon>
         <ListItemText
-          className={`ml-${item?.ml}`}
+          className={`w-24 ${item?.isLevel ? "ml-4" : "ml-8"}`}
           primary={
-            <Typography variant={`${item?.text === "sm" ? "body2" : "body1"}`}>
-              {item.title}
+            <Typography
+              sx={
+                item?.text === "small"
+                  ? { fontWeight: "bold", fontSize: 14 }
+                  : { fontSize: 14 }
+              }
+            >
+              <Group>
+                {item.title}
+                {item.isLevel && (
+                  <Box className="border-black bg-customblue px-2 rounded-full text-white">
+                    {item?.priority}
+                  </Box>
+                )}
+              </Group>
             </Typography>
           }
           onClick={() => {
@@ -111,13 +168,14 @@ const SingleLevel = ({
         {item.isLevel && (
           <Button
             leftIcon={<PlusIcon />}
-            variant="outline"
+            variant="filled"
             size="xs"
-            className="border-black text-black w-28"
+            className="border-black bg-customblue text-white w-28"
             onClick={() => {
               setopenTagModal(true);
               setChosenLevel(item);
-              setClicked(item);
+
+              // setClicked(item);
             }}
           >
             Add Tags
@@ -135,6 +193,8 @@ const MultiLevel = ({
   setSelected,
   clicked,
   setClicked,
+  counter,
+  setCounter,
 }) => {
   const { items: children } = item;
   const [open, setOpen] = useState(false);
@@ -148,9 +208,9 @@ const MultiLevel = ({
   const [newSection, setNewSection] = useState();
   const [margin, setMargin] = useState(`ml-${item.ml}`);
 
-  useEffect(() => {
-    console.log("Hello");
-  }, [facilities]);
+  // useEffect(() => {
+  //   console.log("Hello");
+  // }, [facilities]);
 
   useEffect(() => {
     setMargin(`ml-${item.ml}`);
@@ -186,13 +246,22 @@ const MultiLevel = ({
                 title: newTag,
                 ml: 8,
                 text: "sm",
+                rules: {
+                  availability: ["0900", "1700"],
+                  bookingAmount: 50,
+                  minStudents: 3,
+                  earlyCheckout: true,
+                  roomDescription:
+                    "Lights automatic control and aircon is manual",
+                },
               });
+              setCounter(counter + 1);
               setopenTagModal(false);
             }}
             className="border-black text-black"
             variant="outline"
           >
-            submit
+            Submit
           </Button>
         </Group>
       </Modal>
@@ -220,9 +289,17 @@ const MultiLevel = ({
               chosenBuilding.items.push({
                 title: newSection,
                 isLevel: true,
-
+                text: "sm",
                 ml: 4,
                 items: [],
+                rules: {
+                  availability: ["0900", "1700"],
+                  bookingAmount: 50,
+                  minStudents: 3,
+                  earlyCheckout: true,
+                  roomDescription:
+                    "Lights automatic control and aircon is manual",
+                },
               });
               setopenSectionModal(false);
               console.log(chosenBuilding);
@@ -230,7 +307,7 @@ const MultiLevel = ({
             className="border-black text-black"
             variant="outline"
           >
-            submit
+            Submit
           </Button>
         </Group>
       </Modal>
@@ -254,8 +331,22 @@ const MultiLevel = ({
             className={`ml-4`}
             onClick={() => setClicked(item)}
             primary={
-              <Typography variant={`${item.text === "sm" ? "body2" : "body1"}`}>
-                {item.title}
+              <Typography
+                sx={
+                  item?.text === "small"
+                    ? { fontWeight: 600, fontSize: 14 }
+                    : { fontWeight: "bold", fontSize: 18 }
+                }
+                // variant={`${item.text === "sm" ? "body2" : "body1"} `}
+              >
+                <Group>
+                  {item.title}
+                  {item.isLevel && (
+                    <Box className="border-black bg-customblue px-2 rounded-full text-white">
+                      {item?.priority}
+                    </Box>
+                  )}
+                </Group>
               </Typography>
             }
           />
@@ -264,9 +355,10 @@ const MultiLevel = ({
               leftIcon={<PlusIcon />}
               variant="outline"
               size="xs"
-              className="border-black text-black w-28"
+              className="border-black bg-customblue text-white w-28"
               onClick={() => {
                 setopenTagModal(true);
+                setClicked(null);
                 setChosenLevel(item);
               }}
             >
@@ -278,13 +370,13 @@ const MultiLevel = ({
               leftIcon={<PlusIcon />}
               variant="outline"
               size="xs"
-              className="border-black text-black w-28"
+              className="border-black bg-customblue text-white w-28"
               onClick={() => {
                 setopenSectionModal(true);
                 setChosenBuilding(item);
               }}
             >
-              Add Level
+              Add Section
             </Button>
           )}
         </ListItem>
@@ -300,6 +392,8 @@ const MultiLevel = ({
               setSelected={setSelected}
               clicked={clicked}
               setClicked={setClicked}
+              counter={counter}
+              setCounter={setCounter}
             />
           ))}
         </List>

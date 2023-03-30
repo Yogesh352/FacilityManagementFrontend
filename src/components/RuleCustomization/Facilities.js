@@ -12,8 +12,11 @@ export const facilities = [
     items: [
       {
         title: "Level 1",
+        id: 1,
         isLevel: true,
         ml: 4,
+        text: "small",
+        priority: 1,
         rules: {
           availability: ["0900", "1700"],
           bookingAmount: 50,
@@ -31,7 +34,7 @@ export const facilities = [
               bookingAmount: 12,
               minStudents: 3,
               earlyCheckout: true,
-              roomDescription: "This room is very nice",
+              roomDescription: "Lights automatic control and aircon is manual",
             },
           },
           {
@@ -43,7 +46,7 @@ export const facilities = [
               bookingAmount: 12,
               minStudents: 2,
               earlyCheckout: true,
-              roomDescription: "This room is very nice",
+              roomDescription: "Higher Energy Consumption",
             },
           },
         ],
@@ -52,6 +55,51 @@ export const facilities = [
         title: "Level 2",
         isLevel: true,
         ml: 4,
+        id: 2,
+        text: "small",
+        priority: 2,
+        rules: {
+          availability: ["1200", "1700"],
+          bookingAmount: 100,
+          minStudents: 2,
+          earlyCheckout: true,
+          roomDescription: "More popular for students to book",
+        },
+        items: [
+          {
+            title: "SRs",
+            ml: 8,
+            text: "sm",
+            rules: {
+              availability: ["1200", "1300"],
+              bookingAmount: 50,
+              minStudents: 2,
+              earlyCheckout: false,
+              roomDescription: "Higher usage of energy due to size",
+            },
+          },
+          {
+            title: "Study Pods",
+            ml: 8,
+            text: "sm",
+            rules: {
+              availability: ["1200", "1800"],
+              bookingAmount: 50,
+              minStudents: 4,
+              earlyCheckout: true,
+              roomDescription: "This room is very nice",
+            },
+          },
+        ],
+      },
+
+      {
+        title: "Level 3",
+        isLevel: true,
+        ml: 4,
+        id: 3,
+        text: "small",
+        priority: 3,
         rules: {
           availability: ["1200", "1700"],
           bookingAmount: 100,
@@ -97,6 +145,8 @@ export const facilities = [
         title: "Level 1",
         isLevel: true,
         ml: 4,
+        text: "small",
+        priority: 2,
         rules: {
           availability: ["1100", "1700"],
           bookingAmount: 10,
@@ -137,6 +187,8 @@ export const facilities = [
         title: "Level 2",
         isLevel: true,
         ml: 4,
+        text: "small",
+        priority: 1,
         rules: {
           availability: ["1200", "1700"],
           bookingAmount: 20,
