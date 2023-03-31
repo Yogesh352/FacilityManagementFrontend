@@ -44,6 +44,9 @@ const NewCustomization = () => {
   const [sectionPrioritySelect, setSectionPrioritySelect] = useState([]);
   const [openTagModal, setOpenTagModal] = useState(false);
 
+  const [occupancy, setOccupancy] = useState(100);
+  const [openOccupancyModal, setOpenOccupancyModal] = useState(false);
+
   const [selected, setSelected] = useState();
   const [tags, setTags] = useState();
   const [priorityUpdate, setPriorityUpdate] = useState(0);
@@ -241,6 +244,31 @@ const NewCustomization = () => {
             </Group>
           </Grid.Col>
         </Grid>
+      </Modal>
+      <Modal
+        opened={openOccupancyModal}
+        onClose={() => {
+          setOpenOccupancyModal(false);
+        }}
+        title="Set Occupancy"
+        size="lg"
+      >
+        <Text className="text-xs text-gray-600 mb-4">
+          Set occupancy at which next section will unlock
+        </Text>
+        <NumberInput value={occupancy} onChange={setOccupancy} />
+
+        <Group className="w-full mt-5" position="right">
+          <Button
+            onClick={() => {
+              setOpenOccupancyModal(false);
+            }}
+            variant="outline"
+            className="border-black text-black"
+          >
+            Save
+          </Button>
+        </Group>
       </Modal>
 
       <Modal
@@ -451,16 +479,34 @@ const NewCustomization = () => {
                             >
                               Add New Tag
                             </Button>
+
                             {i === 0 && (
-                              <SegmentedControl
-                                size="xs"
-                                value={toggle}
-                                onChange={setToggle}
-                                data={[
-                                  { label: "Tags", value: "tags" },
-                                  { label: "Priority", value: "priority" },
-                                ]}
-                              />
+                              <>
+                                <Button
+                                  leftIcon={<StudentsIcon />}
+                                  size="xs"
+                                  className="text-white bg-customblue border-black"
+                                  variant="outline"
+                                  onClick={async () => {
+                                    setOpenOccupancyModal(true);
+                                  }}
+                                >
+                                  <span className="mr-2">Occupancy: </span>
+                                  <span className="font-bold text-md">
+                                    {" "}
+                                    {occupancy} %{" "}
+                                  </span>
+                                </Button>
+                                <SegmentedControl
+                                  size="xs"
+                                  value={toggle}
+                                  onChange={setToggle}
+                                  data={[
+                                    { label: "Tags", value: "tags" },
+                                    { label: "Priority", value: "priority" },
+                                  ]}
+                                />
+                              </>
                             )}
                           </Group>
                         </Group>
